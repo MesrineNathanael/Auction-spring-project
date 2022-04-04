@@ -1,6 +1,5 @@
 package com.euuuh.auction;
 
-import com.euuuh.auction.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
