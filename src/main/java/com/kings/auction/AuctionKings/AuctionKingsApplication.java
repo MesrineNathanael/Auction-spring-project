@@ -8,6 +8,7 @@ public class AuctionKingsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AuctionKingsApplication.class, args);
+		
 	}
 
 }

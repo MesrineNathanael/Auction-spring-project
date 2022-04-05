@@ -1,0 +1,13 @@
+<settings>
+ <proxies> 
+ <proxy>
+ <id>proxy_http</id>
+ <active>true</active> 
+ <protocol>http</protocol>
+ <host>http://proxy79.ad.campus-eni.fr</host> 
+ <port>8080</port> 
+ <nonProxyHosts>*.local</nonProxyHosts> 
+ </proxy> 
+ </proxies>  
+ </settings>
+
