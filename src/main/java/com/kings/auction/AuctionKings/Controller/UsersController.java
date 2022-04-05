@@ -33,17 +33,20 @@ public class UsersController {
     }
 
     @RequestMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public User getUserById(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User user) {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstname(user.getFirstname());
@@ -56,6 +59,7 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
