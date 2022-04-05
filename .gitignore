@@ -219,6 +219,7 @@ sketch
 .ionide
 
 ./node_modules/
+.node_modules/
 
 # Support for Project snippet scope
 
