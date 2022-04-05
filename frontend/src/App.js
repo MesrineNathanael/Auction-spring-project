@@ -7,10 +7,10 @@ class App extends Component{
     users: []
   };
   componentDidMount() {
-    fetch('http://localhost:8080/users/all',{
+    fetch('http://localhost:8080/users',{
       method: 'GET',
       headers: {
-      'Access-Control-Allow-Origin': '*'
+        
       }
       })
       .then((response)=> response.json())

@@ -27,7 +27,7 @@ public class UsersController {
     }
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
