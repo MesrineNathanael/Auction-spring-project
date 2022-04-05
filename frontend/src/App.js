@@ -8,10 +8,7 @@ class App extends Component{
   };
   componentDidMount() {
     fetch('http://localhost:8080/users',{
-      method: 'GET',
-      headers: {
-        
-      }
+      method: 'GET'
       })
       .then((response)=> response.json())
       .then((data)=> this.setState({users: data}))
