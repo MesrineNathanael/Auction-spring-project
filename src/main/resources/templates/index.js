@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import react from React
-
+//This is the main page in recat.js
 class index extends Component{
     constructor(props){
         super(props)
     }
     render(){
         return(
-            <h1>Hello UwU</h1>
+            <div>
+                <h1>Hello World</h1>
+            </div>
+        
         )
     }
 }
