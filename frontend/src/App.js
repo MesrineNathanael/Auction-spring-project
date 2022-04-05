@@ -10,8 +10,6 @@ class App extends Component{
     fetch('http://localhost:8080/users/all',{
       method: 'GET',
       headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
       }
       })
