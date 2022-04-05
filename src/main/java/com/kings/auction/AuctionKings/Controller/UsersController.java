@@ -1,10 +1,13 @@
 package com.kings.auction.AuctionKings.Controller;
 
+import java.util.List;
+
 import com.kings.auction.AuctionKings.Models.User;
 import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,8 +25,8 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/")
-    public Iterable<User> getAllUsers() {
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 

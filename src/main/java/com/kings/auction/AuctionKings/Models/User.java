@@ -26,6 +26,10 @@ public class User {
     private int credit;
     private boolean admin;
     
+    //constructor empty
+    public User() {
+    }
+
     //constructor
     public User(long id, String username, String firstname, String lastname, String email, String password,
             String phoneNumber, String street, String city, String postalCode, int credit, boolean admin) {
