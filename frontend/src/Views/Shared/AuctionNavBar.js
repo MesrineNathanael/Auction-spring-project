@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import styles from "./NavBar.module.css"
 import logo from "./logoAuctionKings.png"
 import { Link } from "react-router-dom";
-import Home from "../Home";
+
 
 class AuctionNavBar extends Component{
     isConnexionPage = false;

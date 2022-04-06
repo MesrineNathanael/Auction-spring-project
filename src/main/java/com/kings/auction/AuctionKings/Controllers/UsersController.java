@@ -65,9 +65,9 @@ public class UsersController {
     }
 
     //get user by email and password
-    @GetMapping("/connection/email/{email}/password/{password}")
+    @GetMapping("/connection/email/{email}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    ResponseEntity<User> findUser(@PathVariable String email, @PathVariable String password) {
+    ResponseEntity<User> findUser(@PathVariable String email, @RequestBody String password) {
         User user = userRepository.findByEmail(email);
         var userPass = user.getPassword();
         if(password.equals(userPass)){
