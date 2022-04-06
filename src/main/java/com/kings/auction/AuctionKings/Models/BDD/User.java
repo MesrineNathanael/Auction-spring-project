@@ -1,4 +1,4 @@
-package com.kings.auction.AuctionKings.Models;
+package com.kings.auction.AuctionKings.Models.BDD;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 //class user with attributes
 //id, username, firstname, lastname, email, password, phoneNumber, street, city, postalCode, credit and admin as bool
 public class User {

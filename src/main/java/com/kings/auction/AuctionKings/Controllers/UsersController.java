@@ -1,8 +1,8 @@
-package com.kings.auction.AuctionKings.Controller;
+package com.kings.auction.AuctionKings.Controllers;
 
 import java.util.List;
 
-import com.kings.auction.AuctionKings.Models.User;
+import com.kings.auction.AuctionKings.Models.BDD.User;
 import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
 import org.springframework.http.ResponseEntity;
@@ -64,4 +64,15 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
+    //get user by email and password
+    @GetMapping("/connection/email/{email}/password/{password}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+    ResponseEntity<User> findUser(@PathVariable String email, @PathVariable String password) {
+        User user = userRepository.findByEmail(email);
+        var userPass = user.getPassword();
+        if(password.equals(userPass)){
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.status(401).build();
+    }
 }
