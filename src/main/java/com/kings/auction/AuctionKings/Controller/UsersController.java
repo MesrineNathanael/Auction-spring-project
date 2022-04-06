@@ -39,7 +39,6 @@ public class UsersController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
