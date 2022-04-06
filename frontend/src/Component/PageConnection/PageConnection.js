@@ -1,66 +1,66 @@
-import React, { Component, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./PageConnection.css"
 
 
-function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const history = useHistory();
+class PageConnection extends Component {
 
-    useEffect(() => {
-        if (localStorage.getItem('user-info')) {
-            history.push("/add")
-        }
-    }, [])
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: [],
+            password: "",
+            email:"",
+          };
+    }
 
-    function login()
-    {
-        let item={email,password}
-        let result = await fetch("http://localhost:8080/users/connection/email/{email}/password/{password}",{
-            method: 'GET',
-            headers:
-        }
-        
-        
-        )
-    }   
+    fetchUser(){
+        fetch('http://localhost:8080/users/connection/'+this.props.email+'/password/'+this.props.password,{
+            method: 'GET'
+            })
+            .then((response)=> response.json())
+            .then((data)=> this.setState({users: data}))
+    };
 
-    return (
-        <div>
-            <div className="content-profile">
+    render() {
+        return (
+            <div>
+                <div className="content-profile">
                 <h1 className="profile-edit-title">Bienvenue</h1>
-                <div className="onefield">
-                    <div>
-                        <label>Email :</label>
-                        <input type="text" placeholder="Email"
-                            defaultValue=""
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                    <div className="onefield">
+                        <div>
+                            <label>Email :</label>
+                            <input type="text" placeholder="Email"
+                                defaultValue=""
+                                value={this.state.email}
+                            />
 
+                        </div>
                     </div>
-                </div>
 
-                <div className="onefield">
-                    <div>
-                        <label>Mot de Passe :</label>
-                        <input type="text" placeholder="Mot de Passe"
-                            defaultValue=""
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                    <div className="onefield">
+                        <div>
+                            <label>Mot de Passe :</label>
+                            <input type="text" placeholder="Mot de Passe"
+                                defaultValue=""
+                                value={this.state.password}
+                            />
 
+                        </div>
                     </div>
-                </div>
 
-
+                    
                 <button type="submit" className="connection"
-                    onClick={login}>
+                >
                     Connexion
                 </button>
-            </div>
+                </div>
 
-        </div>
-    )
+            </div>
+        )
+
+
+    }
+
 }
-export default withRouter(Login);
+export default withRouter(PageConnection);
