@@ -26,7 +26,7 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -34,19 +34,19 @@ public class UsersController {
 
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public User getUserById(@PathVariable Long id) {
+    public User getUserById(@PathVariable Integer id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-
+    
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Integer id,@RequestBody User user) {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstname(user.getFirstname());
         currentUser.setLastname(user.getLastname());
@@ -57,9 +57,9 @@ public class UsersController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
