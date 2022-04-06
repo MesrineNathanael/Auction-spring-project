@@ -11,7 +11,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "products")
 //class product with attributes
-//id, name, description, dateBegin, dateEnd, basePrice, sellPrice, status, idCategoryProduct, idUserSeller, idUserLastBid, idWithdrawProduct, image
+//id, name, description, dateBegin, dateEnd, basePrice, sellPrice, status, idCategoryProduct, idUserSeller, idWithdrawProduct, image
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,6 @@ public class Product {
     private String status;
     private Integer idCategoryProduct;
     private Integer idUserSeller;
-    private Integer idUserLastBid;
     private Integer idWithdrawProduct;
     private String image;
 
@@ -38,7 +37,7 @@ public class Product {
 
     //constructor
     public Product(Integer id, String name, String description, String dateBegin, String dateEnd, double basePrice,
-            double sellPrice, String status, Integer idCategoryProduct, Integer idUserSeller, Integer idUserLastBid,
+            double sellPrice, String status, Integer idCategoryProduct, Integer idUserSeller,
             Integer idWithdrawProduct, String image) {
         super();
         this.id = id;
@@ -51,7 +50,6 @@ public class Product {
         this.status = status;
         this.idCategoryProduct = idCategoryProduct;
         this.idUserSeller = idUserSeller;
-        this.idUserLastBid = idUserLastBid;
         this.idWithdrawProduct = idWithdrawProduct;
         this.image = image;
     }
@@ -135,14 +133,6 @@ public class Product {
 
     public void setIdUserSeller(Integer idUserSeller) {
         this.idUserSeller = idUserSeller;
-    }
-
-    public Integer getIdUserLastBid() {
-        return idUserLastBid;
-    }
-
-    public void setIdUserLastBid(Integer idUserLastBid) {
-        this.idUserLastBid = idUserLastBid;
     }
 
     public Integer getIdWithdrawProduct() {
