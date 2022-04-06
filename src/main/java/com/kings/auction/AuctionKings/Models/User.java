@@ -2,17 +2,21 @@ package com.kings.auction.AuctionKings.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
-@Table(name = "user")
+@Table(name = "Users")
 //class user with attributes
 //id, username, firstname, lastname, email, password, phoneNumber, street, city, postalCode, credit and admin as bool
 public class User {
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Type(type = "int")
+    private Integer id;
     
     private String username;
     private String firstname;
@@ -31,7 +35,7 @@ public class User {
     }
 
     //constructor
-    public User(long id, String username, String firstname, String lastname, String email, String password,
+    public User (Integer id, String username, String firstname, String lastname, String email, String password,
             String phoneNumber, String street, String city, String postalCode, int credit, boolean admin) {
         super();
         this.id = id;
@@ -49,10 +53,10 @@ public class User {
     }
     
     //getters and setters
-    public long getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId (Integer id) {
         this.id = id;
     }
     public String getUsername() {

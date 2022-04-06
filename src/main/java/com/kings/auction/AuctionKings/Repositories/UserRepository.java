@@ -4,12 +4,10 @@ package com.kings.auction.AuctionKings.Repositories;
 import com.kings.auction.AuctionKings.Models.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Repository;
 
-@RestController
-@RequestMapping
-public interface UserRepository extends JpaRepository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 
 }
