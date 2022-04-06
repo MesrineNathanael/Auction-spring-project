@@ -37,9 +37,8 @@ public class UsersController {
     public User getUserById(@PathVariable Integer id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-
-    @PostMapping("/add")
-    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+    
+    @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
