@@ -1,20 +1,38 @@
 .main{
     width: 100vw;
     height: 90vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
 }
 
 .searchMain {
     margin-top: 1%;
-    display: flex;
-    height: 100vh;
+    height: 10vh;
     width: 50vw;
-    align-items: center;
-    flex-direction: column;
+    margin: auto;
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .search {
-    width: 100%;
+    width: 80%;
+}
+
+.categ{
+    width: 20%;
+}
+
+.products{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.product{
+    width: 50vw;
+    height: 10vh;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
