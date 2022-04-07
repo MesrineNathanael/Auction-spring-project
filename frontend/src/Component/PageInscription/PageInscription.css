@@ -1,38 +1,68 @@
-.content-profile{
-    width: calc(1/3 * 100%);
-    margin: auto;
+.content-profile {
+  width: calc(1 / 3 * 100%);
+  margin: auto;
 }
 
-.profile-edit-title{
-    text-align: center;
+.profile-edit-title {
+  text-align: center;
 }
 
 .onefield div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.onefield div input{
-    padding: 10px;
-    border: 1px solid #3288d1;
-    border-radius: 3px;
-    margin-top: 10px;
+.onefield div input {
+  padding: 10px;
+  border: 1px solid #3288d1;
+  border-radius: 3px;
+  margin-top: 10px;
 }
-
 
 .onefield {
-    margin-top: 4%;
+  margin-top: 4%;
 }
 
-.connection{
-    padding: 14px;
-    background-color: #303030;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: auto;
-    display: flex;
-    margin-top: 20px;
+.inscription-button {
+  padding: 14px;
+  background-color: #303030;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: auto;
+  display: flex;
+  margin-top: 20px;
+}
+
+.twofields {
+  margin-left: 70px;
+  display: flex;
+  flex-direction: row;
+}
+
+.twofieldsdiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.twofieldsdiv input {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #3288d1;
+  border-radius: 3px;
+}
+.twofields div input {
+  padding: 10px;
+  border: 1px solid #3288d1;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .twofields {
+    margin-left: -100px;
+  }
 }
