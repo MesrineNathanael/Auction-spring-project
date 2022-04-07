@@ -12,7 +12,7 @@ class Home extends Component{
       };
       componentDidMount() {
         fetch('http://localhost:8080/categories/all',{
-          method: 'GET'
+          method: 'GET',
           })
           .then((response)=> response.json())
           .then((data)=> this.setState({categories: data}))

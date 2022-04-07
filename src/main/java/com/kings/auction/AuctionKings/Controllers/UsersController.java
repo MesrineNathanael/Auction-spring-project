@@ -1,11 +1,14 @@
 package com.kings.auction.AuctionKings.Controllers;
 
+import java.io.Console;
 import java.util.List;
+import java.util.Optional;
 
 import com.kings.auction.AuctionKings.Models.BDD.User;
 import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -65,15 +69,15 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
-    // get user by email and password
-    @GetMapping("/connection/email/{email}")
+    //get user by email and password
+    @GetMapping("/connection/email/{email}/password/{password}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    ResponseEntity<User> findUser(@PathVariable String email, @RequestBody String password) {
+    ResponseEntity<User> findUser(@PathVariable String email, @PathVariable String password) {
         User user = userRepository.findByEmail(email);
         var userPass = user.getPassword();
         if (password.equals(userPass)) {
             return ResponseEntity.ok(user);
         }
-        return ResponseEntity.status(401).build();
+        return ResponseEntity.status(404).build();
     }
 }
