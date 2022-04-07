@@ -21,10 +21,11 @@ class App extends Component{
           <Route exact path="/encheres">
             <Home />
           </Route>
-          {/*<Redirect to="/encheres"/>*/}
           <Route exact path="/connection"> 
             <PageConnection />
           </Route>
+          {/* A METTRE EN DERNIER CAR CECI EST LA PAGE PAR DEFAUT */}
+          <Redirect to="/encheres"/>
         </Switch>
       </BrowserRouter>
     );
