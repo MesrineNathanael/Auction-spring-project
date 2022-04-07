@@ -81,7 +81,26 @@ export default function PageInscription() {
                 //test if the user is created
                 if (data !== null) {
                     //redirect to the login page
-                    window.location.href = "/connection";
+                    //fetch the new user information
+                    var url = "http://localhost:8080/users/connection/email/" + data.email + "/password/" + data.password;
+                    fetch(url, {
+                        method: "GET",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("User found after sign in : " + data);
+                            //test if the user is found
+                            if (data !== null) {
+                                //redirect to the home page
+                                window.sessionStorage.setItem("isConnected", true);
+                                window.sessionStorage.setItem("user", JSON.stringify(data));
+                                window.location.href = "/";
+                            }
+                        });
                 }
             });
     };

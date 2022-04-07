@@ -56,16 +56,19 @@ export default function PageConnection() {
         })
             .then((response) => response.json())
             .then((data) => { 
-                setUserState(data)
-                //test if the user is created
-                if ( users.user.length > 0 ) {
-                    //redirect to the login page
+                //if the user is found the data will be an array of one user
+                //check if the data contain id
+                if ("id" in data) {
+                    //save the user in the session
+                    window.sessionStorage.setItem("user", JSON.stringify(data));
+                    window.sessionStorage.setItem("isConnected", true);
+                    //redirect to the auction page
                     window.location.href = "/enchere";
-                } else {
+                }else{
                     alert("Connection impossible")
                 }
+
             });
-            console.log(users,"salut");
     };
 
     return (

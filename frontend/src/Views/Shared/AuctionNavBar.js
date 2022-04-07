@@ -8,8 +8,15 @@ import { Link } from "react-router-dom";
 class AuctionNavBar extends Component{
     isConnexionPage = false;
 
+
+    //function to log out
+    logout = () => {
+        window.sessionStorage.clear();
+    };
+
     render(){
-        let isConnected = false;
+        //isconnected will be true if the user is connected in the session storage
+        const isConnected = sessionStorage.getItem("isConnected");
         let size = !isConnected ? 20 : 50;
         
         return(
@@ -42,8 +49,8 @@ class AuctionNavBar extends Component{
                     <Link to='/profil'>
                         <h2>Mon profil</h2>
                     </Link>
-                    <Link to='/disconnect'>
-                        <h2>Déconnexion</h2>
+                    <Link to='/'>
+                        <h2 onClick={this.logout}>Déconnexion</h2>
                     </Link>
                     </> 
                 }
