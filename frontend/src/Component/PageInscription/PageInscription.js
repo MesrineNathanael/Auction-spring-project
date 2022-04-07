@@ -65,7 +65,8 @@ export default function PageInscription() {
             street: formState.address,
             postalCode: formState.zipCode,
             city: formState.city,
-            password: formState.password
+            password: formState.password,
+            credit: 100,
         };
         fetch(url, {
             method: "POST",
@@ -87,12 +88,16 @@ export default function PageInscription() {
     };
 
     return (
+
         <div className="content-profile">
             <h1 className="profile-edit-title">Inscription</h1>
+            <p className="profile-edit-text">
+                * : Champs obligatoires
+            </p>
             <Form onSubmit={handleSubmit}>
                 <div className="onefield">
                     <div>
-                        <label>Nom d'utilisateur :</label>
+                        <label>* Nom d'utilisateur :</label>
                         <input
                             type="text"
                             placeholder="Username"
@@ -104,7 +109,7 @@ export default function PageInscription() {
                 </div>
                 <div className="onefield">
                     <div>
-                        <label>Email :</label>
+                        <label>* Email :</label>
                         <input
                             type="text"
                             placeholder="Email"
@@ -116,7 +121,7 @@ export default function PageInscription() {
                 </div>
                 <div className="onefield">
                     <div>
-                        <label>Mot de Passe :</label>
+                        <label>* Mot de Passe :</label>
                         <input
                             type="text"
                             placeholder="Mot de Passe"
@@ -128,7 +133,7 @@ export default function PageInscription() {
                 </div>
                 <div className="onefield">
                     <div>
-                        <label>Confirmation du Mot de Passe :</label>
+                        <label>* Confirmation du Mot de Passe :</label>
                         <input
                             type="text"
                             placeholder="Confirmation du Mot de Passe"
@@ -140,7 +145,7 @@ export default function PageInscription() {
                 </div>
                 <div className="onefield">
                     <div>
-                        <label>Prénom :</label>
+                        <label>* Prénom :</label>
                         <input
                             type="text"
                             placeholder="Prénom"
@@ -152,7 +157,7 @@ export default function PageInscription() {
                 </div>
                 <div className="onefield">
                     <div>
-                        <label>Nom :</label>
+                        <label>* Nom :</label>
                         <input
                             type="text"
                             placeholder="Nom"
@@ -211,7 +216,8 @@ export default function PageInscription() {
                     </div>
                 </div>
             </Form>
-            <Button className="btn-primary" type="submit" onClick={handleSubmit}>
+
+            <Button className="inscription-button" type="submit" onClick={handleSubmit}>
                 S'inscrire
             </Button>
         </div>
