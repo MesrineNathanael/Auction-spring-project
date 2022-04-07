@@ -59,8 +59,19 @@ class Home extends Component{
                 <div className={styles.Products}>
                     {this.state.products.map((products) =>
                         <div className={styles.product}>
-                            <h1>{products.name}</h1>
-                            <p>{products.description}</p>
+
+                            <div className={styles.imgContainer}>
+                                <div className={styles.imgProduct}>
+                                    <img alt="LOGO"></img>
+                                </div>
+                            </div>
+                            
+
+                            <div className={styles.txtContainer}>
+                                <h1 className={styles.title}>{products.name}</h1>
+                                <br />
+                                <p className={styles.desc}>{products.description}</p>
+                            </div>
                         </div>
                     )}
                 </div>
