@@ -17,9 +17,7 @@ export default function PageConnection() {
         password: "",
     });
 
-    const [users, setUserState] = React.useState({
-        user : []
-    });
+    
 
     //handle change of the form
     const handleChange = (event) => {
@@ -91,7 +89,7 @@ export default function PageConnection() {
                     <div>
                         <label>Password :</label>
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Password"
                             name="password"
                             value={formState.password}
@@ -100,11 +98,11 @@ export default function PageConnection() {
                     </div>
                 </div>
             </Form>
-            <Button className="btn-primary" type="submit" onClick={handleSubmit}>
+            <Button className="inscription-button" type="submit" onClick={handleSubmit}>
                 {
                     
                 }
-                S'inscrire
+                Se connecter
             </Button>
         </div>
     );
