@@ -15,7 +15,7 @@ class AuctionNavBar extends Component{
         return(
             <div className={styles.navbar}>
                 <Link to="/">
-                    <img className={styles.img} src={logo}></img>
+                    <img alt="Auction Kings" className={styles.img} src={logo}></img>
                 </Link>
                 {}
                 <div className={styles.links} style={{width:size+"%"}}>
