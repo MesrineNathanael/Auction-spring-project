@@ -138,7 +138,7 @@ export default function PageInscription() {
                         <div>
                             <label>* Mot de Passe :                            </label>
                             <input
-                                type="text"
+                                type="password"
                                 placeholder="Mot de Passe"
                                 name="password"
                                 value={formState.password}
@@ -148,7 +148,7 @@ export default function PageInscription() {
                         <div>
                             <label>* Confirmation du Mot de Passe :</label>
                             <input
-                                type="text"
+                                type="password"
                                 placeholder="Confirmation du Mot de Passe"
                                 name="passwordConfirm"
                                 value={formState.passwordConfirm}
