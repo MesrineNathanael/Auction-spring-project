@@ -66,7 +66,6 @@ export default function PageInscription() {
             postalCode: formState.zipCode,
             city: formState.city,
             password: formState.password,
-            credit: 100,
         };
         fetch(url, {
             method: "POST",
