@@ -37,8 +37,9 @@ public class UsersController {
     public User getUserById(@PathVariable Integer id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
-    
-    @PostMapping
+
+    @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
@@ -46,7 +47,7 @@ public class UsersController {
 
     @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id,@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstname(user.getFirstname());
         currentUser.setLastname(user.getLastname());
@@ -64,13 +65,13 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
-    //get user by email and password
+    // get user by email and password
     @GetMapping("/connection/email/{email}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     ResponseEntity<User> findUser(@PathVariable String email, @RequestBody String password) {
         User user = userRepository.findByEmail(email);
         var userPass = user.getPassword();
-        if(password.equals(userPass)){
+        if (password.equals(userPass)) {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.status(401).build();

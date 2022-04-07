@@ -24,7 +24,7 @@ class AuctionNavBar extends Component{
 
                 {!isConnected ? 
                     <>
-                    <Link to="/connexion">
+                    <Link to="/connection">
                         <h2>Connexion</h2>
                     </Link>
                     <Link to='/inscription'>

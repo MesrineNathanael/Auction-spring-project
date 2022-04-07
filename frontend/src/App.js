@@ -8,6 +8,7 @@ import { Switch } from 'react-router-dom';
 import AuctionNavBar from "./Views/Shared/AuctionNavBar";
 import { Redirect } from 'react-router-dom';
 import PageConnection from './Component/PageConnection/PageConnection';
+import PageInscription from './Component/PageInscription/PageInscription';
 
 class App extends Component{
   render(){
@@ -23,6 +24,9 @@ class App extends Component{
           </Route>
           <Route exact path="/connection"> 
             <PageConnection />
+          </Route>
+          <Route exact path="/inscription"> 
+            <PageInscription />
           </Route>
           {/* A METTRE EN DERNIER CAR CECI EST LA PAGE PAR DEFAUT */}
           <Redirect to="/encheres"/>
