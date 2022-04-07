@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TextField from "@mui/material/TextField";
 import { Select } from "@mui/material";
 import { withRouter } from "react-router-dom";
-import styles from "./Home.module.css"
+import styles from "../Views/Home.module.css"
 
 
 class Home extends Component{

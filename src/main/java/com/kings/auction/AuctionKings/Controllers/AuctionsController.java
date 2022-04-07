@@ -6,6 +6,7 @@ import com.kings.auction.AuctionKings.Models.BDD.Auction;
 import com.kings.auction.AuctionKings.Repositories.AuctionRepository;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,18 +26,21 @@ public class AuctionsController {
 
     //get all auctions
     @RequestMapping("/all")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public List<Auction> getAllAuctions() {
         return auctionRepository.findAll();
     }
 
     //get auction by id
     @RequestMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public Auction getAuctionById(@PathVariable Integer id) {
         return auctionRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     //add auction
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Auction> createAuction(@RequestBody Auction auction) {
         Auction savedAuction = auctionRepository.save(auction);
         return ResponseEntity.ok(savedAuction);
