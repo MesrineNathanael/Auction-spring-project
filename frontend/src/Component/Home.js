@@ -79,7 +79,7 @@ class Home extends Component{
                                         <span className={styles.title}>{products.name}</span>
                                         <span className={styles.price}>Prix : {products.sellPrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
-                                        <span className={styles.seller}>Vendeur : {this.state.users.map((user)=>user.firstname)}</span>
+                                        <span className={styles.seller}>Vendeur : {products.idUserSeller}</span>
                                     </div>
                                 </div>
                             </li>
