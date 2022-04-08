@@ -29,6 +29,7 @@ class Home extends Component{
       }
 
     render(){
+        console.log(this.state.products)
         return(
             <div className={styles.main}>
                 <div className={styles.searchMain}>
@@ -64,13 +65,15 @@ class Home extends Component{
 
                                     <div className={styles.imgContainer}>
                                         <div className={styles.imgProduct}>
-                                            <img alt="LOGO"></img>
+                                            <img src={products.image} alt="LOGO"></img>
                                         </div>
                                     </div>
 
                                     <div className={styles.txtContainer}>
                                         <span className={styles.title}>{products.name}</span>
-                                        <span className={styles.desc}>{products.description}</span>
+                                        <span className={styles.price}>Prix : {products.sellPrice} credits</span>
+                                        <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
+                                        <span className={styles.seller}>Vendeur : {products.idUserSeller}</span>
                                     </div>
                                 </div>
                             </li>
