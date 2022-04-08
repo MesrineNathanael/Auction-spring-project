@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import { FormControl, getDialogActionsUtilityClass } from "@mui/material";
+import { FormControl } from "@mui/material";
 import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { Select } from "@mui/material";
@@ -35,7 +35,6 @@ class Home extends Component{
       }
 
     render(){
-        console.log(this.state.products, this.state.user)
         return(
             <div className={styles.main}>
                 <div className={styles.searchMain}>
