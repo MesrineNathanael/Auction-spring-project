@@ -7,24 +7,27 @@
 }
 
 .imgProduct{
-    width: auto;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     border: 1px solid black;
 }
 
 .imgContainer{
     vertical-align: middle;
-    width: 10%;
+    width: 35%;
     height: 100%;
     display: flex;
+    margin: 0;
 }
 
 .txtContainer{
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 75%;
     height: 90%;
-    margin-bottom: 100px;
+    margin: 0;
 }
 
 .searchMain {
@@ -54,13 +57,18 @@
 }
 
 .product{
-    width: 50vw;
-    height: 10vh;
+    width: 35vw;
+    height: 20vh;
     border: 1px solid black;
+    display: flex;
     justify-content: center;
+    flex-direction: row;
+    margin-bottom: 10px;
 }
 
 .title, .desc{
-    padding-left: 100px;
-    padding-bottom: 200px;
+}
+
+li{
+    list-style: none;
 }
