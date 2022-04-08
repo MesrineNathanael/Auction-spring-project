@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import { FormControl } from "@mui/material";
+import { FormControl, getDialogActionsUtilityClass } from "@mui/material";
 import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { Select } from "@mui/material";
@@ -13,7 +13,8 @@ class Home extends Component{
 
     state = {
         categories: [],
-        products:[]
+        products:[],
+        users:[]
       };
       componentDidMount() {
         fetch('http://localhost:8080/categories/all',{
@@ -25,11 +26,16 @@ class Home extends Component{
          method: 'GET'
          })
          .then((response)=> response.json())
-         .then((data)=> this.setState({products: data}))
+         .then((data)=> this.setState({products: data}));
+        fetch('http://localhost:8080/products/seller',{
+         method: 'GET'
+         })
+         .then((response)=> response.json())
+         .then((data)=> this.setState({users: data}))
       }
 
     render(){
-        console.log(this.state.products)
+        console.log(this.state.products, this.state.user)
         return(
             <div className={styles.main}>
                 <div className={styles.searchMain}>
@@ -73,7 +79,7 @@ class Home extends Component{
                                         <span className={styles.title}>{products.name}</span>
                                         <span className={styles.price}>Prix : {products.sellPrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
-                                        <span className={styles.seller}>Vendeur : {products.idUserSeller}</span>
+                                        <span className={styles.seller}>Vendeur : {this.state.users.map((user)=>user.firstname)}</span>
                                     </div>
                                 </div>
                             </li>

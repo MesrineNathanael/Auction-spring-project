@@ -1,12 +1,16 @@
 package com.kings.auction.AuctionKings.Controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.kings.auction.AuctionKings.Models.BDD.Product;
+import com.kings.auction.AuctionKings.Models.BDD.User;
 import com.kings.auction.AuctionKings.Repositories.ProductRepository;
+import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,10 +24,12 @@ public class ProductsController {
     //This is the products controller
 
     public final ProductRepository productRepository;
+    public final UserRepository userRepository;
 
     //ctor
-    public ProductsController(ProductRepository productRepository) {
+    public ProductsController(ProductRepository productRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     //get all products
@@ -68,4 +74,19 @@ public class ProductsController {
         productRepository.delete(currentProduct);
         return ResponseEntity.ok(currentProduct);
     }
+
+    @GetMapping("/seller/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+    public ResponseEntity<List<User>> findSeller() {
+        List<Product> listProducts = productRepository.findAll();
+        List<Integer> listIdUser = (List<Integer>) listProducts.stream()
+            .map(Product::getIdUserSeller)
+            .distinct()
+            .collect(Collectors.toList());
+        
+        List<User> listUser = userRepository.findAllById(listIdUser);
+
+        return ResponseEntity.ok(listUser);
+    }
+
 }
