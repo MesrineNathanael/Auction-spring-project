@@ -36,6 +36,12 @@
   margin-top: 20px;
 }
 
+.inscription-button:hover {
+  background-color: #303030;
+  color: white;
+}
+
+
 .twofields {
   margin-left: 70px;
   display: flex;

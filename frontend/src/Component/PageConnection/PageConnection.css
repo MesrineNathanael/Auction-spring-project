@@ -36,3 +36,9 @@
     display: flex;
     margin-top: 20px;
 }
+
+
+.connection:hover {
+    background-color: #303030;
+    color: white;
+  }
