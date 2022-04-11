@@ -28,7 +28,7 @@ class Home extends Component {
         })
             .then((response) => response.json())
             .then((data) => this.setState({ products: data }));
-        fetch('http://localhost:8080/products/seller', {
+        fetch('http://localhost:8080/users/all', {
             method: 'GET'
         })
             .then((response) => response.json())

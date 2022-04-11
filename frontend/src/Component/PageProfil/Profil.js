@@ -23,7 +23,6 @@ class Profil extends Component {
 
     render(){
         let jsonUser = JSON.parse(window.sessionStorage.getItem("user"));
-        console.log(this.state.user);
         return(
             <div className={styles.profil}>
         
