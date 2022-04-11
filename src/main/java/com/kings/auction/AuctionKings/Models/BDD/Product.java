@@ -1,5 +1,7 @@
 package com.kings.auction.AuctionKings.Models.BDD;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +23,8 @@ public class Product {
     //fields
     private String name;
     private String description;
-    private String dateBegin;
-    private String dateEnd;
+    private Date dateBegin;
+    private Date dateEnd;
     private double basePrice;
     private double sellPrice;
     private String status;
@@ -36,7 +38,7 @@ public class Product {
     }
 
     //constructor
-    public Product(Integer id, String name, String description, String dateBegin, String dateEnd, double basePrice,
+    public Product(Integer id, String name, String description, Date dateBegin, Date dateEnd, double basePrice,
             double sellPrice, String status, Integer idCategoryProduct, Integer idUserSeller,
             Integer idWithdrawProduct, String image) {
         super();
@@ -79,19 +81,19 @@ public class Product {
         this.description = description;
     }
 
-    public String getDateBegin() {
+    public Date getDateBegin() {
         return dateBegin;
     }
 
-    public void setDateBegin(String dateBegin) {
+    public void setDateBegin(Date dateBegin) {
         this.dateBegin = dateBegin;
     }
 
-    public String getDateEnd() {
+    public Date getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(String dateEnd) {
+    public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
     }
 
