@@ -20,9 +20,20 @@
     align-items: center;
     justify-content: space-around;
     color: white;
+    text-decoration: none;
 }
 
 a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+a:focus{
     text-decoration: none;
     color: white;
 }
