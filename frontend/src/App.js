@@ -10,6 +10,7 @@ import PageConnection from './Component/PageConnection/PageConnection';
 import PageInscription from './Component/PageInscription/PageInscription';
 import Profil from './Component/PageProfil/Profil';
 import PageProduct from './Component/PageProduct/Product';
+import AuctionSell from './Component/PageAuctionSell/PageAuctionSell';
 
 class App extends Component{
   render(){
@@ -34,6 +35,9 @@ class App extends Component{
           </Route>
           <Route exact path="/product">
             <PageProduct />
+          </Route>
+          <Route exact path="/vendre"> 
+            <AuctionSell />
           </Route>
           {/* A METTRE EN DERNIER CAR CECI EST LA PAGE PAR DEFAUT */}
           <Redirect to="/encheres"/>
