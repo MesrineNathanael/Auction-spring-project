@@ -28,7 +28,7 @@ class App extends Component{
           <Route exact path="/inscription"> 
             <PageInscription />
           </Route>
-          <Route exact path="/profil"> 
+          <Route exact path="/profil/:id"> 
             <Profil />
           </Route>
           {/* A METTRE EN DERNIER CAR CECI EST LA PAGE PAR DEFAUT */}

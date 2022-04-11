@@ -26,10 +26,8 @@ class AuctionNavBar extends Component{
                 </Link>
                 {}
                 <div className={styles.links} style={{width:size+"%"}}>
-                    
-                
 
-                {!isConnected ? 
+                {!isConnected ?
                     <>
                     <Link to="/connection">
                         <h2>Connexion</h2>
@@ -46,7 +44,7 @@ class AuctionNavBar extends Component{
                     <Link to='/vendre'>
                         <h2>Vendre un article</h2>
                     </Link>
-                    <Link to='/profil'>
+                    <Link to={"/profil/"+JSON.parse(window.sessionStorage.getItem("user")).id}>
                         <h2>Mon profil</h2>
                     </Link>
                     <Link to='/'>
