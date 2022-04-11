@@ -1,0 +1,31 @@
+.profil{
+    margin-top: 10%;
+    height: 25vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+table,td,tr,th{
+    /*border: 1px solid;*/
+}
+.alignLeft{
+    text-align: left;
+}
+
+td{
+    width: 25vw;
+}
+
+th{
+    width: 25vw;
+    text-align: right;
+}
+
+span{
+    font-weight: bold;
+}
+
+.downTable{
+    width: 100%;
+}

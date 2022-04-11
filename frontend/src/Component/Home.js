@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import { FormControl } from "@mui/material";
+import { FormControl, Link } from "@mui/material";
 import { InputLabel } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { Select } from "@mui/material";
@@ -81,7 +81,11 @@ class Home extends Component {
                                         <span className={styles.title}>{products.name}</span>
                                         <span className={styles.price}>Prix : {products.sellPrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
-                                        <span className={styles.seller}>Vendeur : {products.idUserSeller}</span>
+                                        <span className={styles.seller}>Vendeur : <Link href={'/profil/'+products.idUserSeller}>
+                                        {this.state.users.map((users) => 
+                                            products.idUserSeller === users.id ? users.username : null
+                                        )}
+                                        </Link></span>
                                     </div>
                                 </div>
                             </li>
