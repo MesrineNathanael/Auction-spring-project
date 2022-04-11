@@ -9,41 +9,42 @@ import { withRouter } from "react-router-dom";
 import styles from "../Views/Home.module.css";
 
 
-class Home extends Component{
+class Home extends Component {
 
     state = {
         categories: [],
-        products:[],
-        users:[]
-      };
-      componentDidMount() {
-        fetch('http://localhost:8080/categories/all',{
-          method: 'GET',
-          })
-          .then((response)=> response.json())
-          .then((data)=> this.setState({categories: data}));
-        fetch('http://localhost:8080/products/all',{
-         method: 'GET'
-         })
-         .then((response)=> response.json())
-         .then((data)=> this.setState({products: data}));
-        fetch('http://localhost:8080/products/seller',{
-         method: 'GET'
-         })
-         .then((response)=> response.json())
-         .then((data)=> this.setState({users: data}))
-      }
+        products: [],
+        users: []
+    };
 
-    render(){
-        return(
+    componentDidMount() {
+        fetch('http://localhost:8080/categories/all', {
+            method: 'GET',
+        })
+            .then((response) => response.json())
+            .then((data) => this.setState({ categories: data }));
+        fetch('http://localhost:8080/products/all', {
+            method: 'GET'
+        })
+            .then((response) => response.json())
+            .then((data) => this.setState({ products: data }));
+        fetch('http://localhost:8080/products/seller', {
+            method: 'GET'
+        })
+            .then((response) => response.json())
+            .then((data) => this.setState({ users: data }));
+    }
+
+    render() {
+        return (
             <div className={styles.main}>
                 <div className={styles.searchMain}>
                     <div className={styles.search}>
                         <TextField
-                        id="outlined-basic"
-                        variant="outlined"
-                        fullWidth
-                        label="Search"
+                            id="outlined-basic"
+                            variant="outlined"
+                            fullWidth
+                            label="Search"
                         />
                     </div>
                     <div className={styles.categ}>
@@ -51,7 +52,7 @@ class Home extends Component{
                             <FormControl fullWidth>
                                 <InputLabel id="Select_categ">Catégories</InputLabel>
                                 <Select label="Catégories" labelId="Select_categ">
-                                        <MenuItem value={0}>-------</MenuItem>
+                                    <MenuItem value={0}>-------</MenuItem>
                                     {this.state.categories.map((cat) =>
                                         <MenuItem value={cat.idCategory}>{cat.name}</MenuItem>
                                     )}
@@ -61,7 +62,6 @@ class Home extends Component{
                     </div>
                 </div>
 
-                
                 <div className={styles.Products}>
                     <ul>
                         {this.state.products.map((products) =>
@@ -75,6 +75,9 @@ class Home extends Component{
                                     </div>
 
                                     <div className={styles.txtContainer}>
+                                        <a href={`/product`} onClick={window.sessionStorage.setItem("productId", products.id)} title={products.id} >
+                                            <span className={styles.title}>{products.name}</span>
+                                        </a>
                                         <span className={styles.title}>{products.name}</span>
                                         <span className={styles.price}>Prix : {products.sellPrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
