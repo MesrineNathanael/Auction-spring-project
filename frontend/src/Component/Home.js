@@ -14,7 +14,10 @@ class Home extends Component {
     state = {
         categories: [],
         products: [],
-        users: []
+        users: [],
+        productsToShow: [],
+        searchBar: ""
+
     };
 
     componentDidMount() {
@@ -27,12 +30,25 @@ class Home extends Component {
             method: 'GET'
         })
             .then((response) => response.json())
-            .then((data) => this.setState({ products: data }));
+            .then((data) => this.setState({ products: data, productsToShow: data }));
         fetch('http://localhost:8080/users/all', {
             method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => this.setState({ users: data }));
+    }
+
+    filterProducts(searchName){
+        this.setState({searchBar: searchName})
+
+        console.log("clients : " + this.state.searchBar)
+        if(searchName != ""){
+            this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
+        }else{
+            console.log("vide");
+            this.setState({productsToShow: this.state.products})
+        }
+
     }
 
     render() {
@@ -43,8 +59,12 @@ class Home extends Component {
                         <TextField
                             id="outlined-basic"
                             variant="outlined"
-                            fullWidth
+                            value={this.state.searchBar}
                             label="Search"
+                            onChange={
+                                (e) => this.filterProducts(e.target.value)
+                            }
+                            fullWidth
                         />
                     </div>
                     <div className={styles.categ}>
@@ -64,7 +84,7 @@ class Home extends Component {
 
                 <div className={styles.Products}>
                     <ul>
-                        {this.state.products.map((products) =>
+                        {this.state.productsToShow.map((products) =>
                             <li>
                                 <div className={styles.product}>
 
