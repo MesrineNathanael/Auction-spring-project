@@ -4,6 +4,8 @@ import { Form, Row, Col } from "reactstrap";
 import { MenuItem, Select, FormControl, InputLabel} from "@mui/material";
 import { Box } from "@mui/system";
 import "./PageAuctionSell.css"
+import { withRouter } from "react-router-dom";
+
 //need this function to be a class component
 class PageAuctionSell extends React.Component {
     constructor(props) {
@@ -129,6 +131,7 @@ class PageAuctionSell extends React.Component {
     }
 }
 
+export default withRouter(PageAuctionSell)
 // export default function AuctionSell() {
 
 //     //registration page
