@@ -15,6 +15,20 @@ export default function Product() {
         });
       };
     clearCacheData();
+    
+    var priceBid = 0;
+    //const on change
+    const onChange = (e) => {
+        priceBid = e.target.value;
+        console.log(priceBid);
+    };
+
+    const onClick = (e) => {
+        e.preventDefault();
+        console.log(priceBid + " bidded");
+        
+    };
+
     //get the user from the session storage
     const user = JSON.parse(sessionStorage.getItem("user"));
     
@@ -88,7 +102,13 @@ export default function Product() {
 						<p className="vote"><strong>{(30 + (Math.random() * 70)).toFixed(0)}%</strong> des acheteurs recommande ce vendeur ! <strong>({(30 + (Math.random() * 70)).toFixed(0)} avis)</strong></p>
                         <br></br>
 						<div className="action">
-							<button className="add-to-cart btn btn-default" type="button">Encherir</button>
+                            <Form>
+                                <div className="form-group">
+                                    <label htmlFor="lbl">Prix</label>
+                                    <input type="number" onChange={onChange} placeholder={productSellPrice} className="form-control" id="lbl" aria-describedby="emailHelp" />
+                                    <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
+                                </div>
+							</Form>
 						</div>
 					</div>
 				</div>
