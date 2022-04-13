@@ -41,11 +41,9 @@ class Home extends Component {
     filterProducts(searchName){
         this.setState({searchBar: searchName})
 
-        console.log("clients : " + this.state.searchBar)
         if(searchName != ""){
             this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
         }else{
-            console.log("vide");
             this.setState({productsToShow: this.state.products})
         }
 
@@ -99,7 +97,7 @@ class Home extends Component {
                                             <span className={styles.title}>{products.name}</span>
                                         </a>
                                         <span className={styles.title}>{products.name}</span>
-                                        <span className={styles.price}>Prix : {products.sellPrice} credits</span>
+                                        <span className={styles.price}>Prix : {products.basePrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
                                         <span className={styles.seller}>Vendeur : <Link href={'/profil/'+products.idUserSeller}>
                                         {this.state.users.map((users) => 

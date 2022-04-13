@@ -26,8 +26,8 @@ public class Product {
     private Date dateBegin;
     private Date dateEnd;
     private double basePrice;
-    private double sellPrice;
     private String status;
+    
     private Integer idCategoryProduct;
     private Integer idUserSeller;
     private Integer idWithdrawProduct;
@@ -38,8 +38,7 @@ public class Product {
     }
 
     //constructor
-    public Product(Integer id, String name, String description, Date dateBegin, Date dateEnd, double basePrice,
-            double sellPrice, String status, Integer idCategoryProduct, Integer idUserSeller,
+    public Product(Integer id, String name, String description, Date dateBegin, Date dateEnd, double basePrice, String status, Integer idCategoryProduct, Integer idUserSeller,
             Integer idWithdrawProduct, String image) {
         super();
         this.id = id;
@@ -48,7 +47,6 @@ public class Product {
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
         this.basePrice = basePrice;
-        this.sellPrice = sellPrice;
         this.status = status;
         this.idCategoryProduct = idCategoryProduct;
         this.idUserSeller = idUserSeller;
@@ -103,14 +101,6 @@ public class Product {
 
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
-    }
-
-    public double getSellPrice() {
-        return sellPrice;
-    }
-
-    public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
     }
 
     public String getStatus() {
