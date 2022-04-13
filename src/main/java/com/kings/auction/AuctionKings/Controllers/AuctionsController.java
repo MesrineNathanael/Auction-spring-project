@@ -29,8 +29,13 @@ public class AuctionsController {
     // get all auctions
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<Auction> getAllAuctions() {
-        return auctionRepository.findAll();
+    public ResponseEntity<List<Auction>> getAllAuctions() {
+        List<Auction> listeAuction =  auctionRepository.findAll();
+        if (listeAuction.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Enchère trouvé.");
+        } else {
+            return ResponseEntity.ok(listeAuction);
+        }
     }
 
     // get auction by id

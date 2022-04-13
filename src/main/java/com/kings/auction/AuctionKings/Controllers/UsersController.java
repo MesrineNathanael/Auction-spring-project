@@ -34,8 +34,13 @@ public class UsersController {
 
     @GetMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> listeUsers =  userRepository.findAll();
+        if (listeUsers.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun Utilisateur trouvé.");
+        } else {
+            return ResponseEntity.ok(listeUsers);
+        }
     }
 
     @RequestMapping("/{id}")

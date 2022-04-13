@@ -28,8 +28,13 @@ public class CategoriesController {
     //get all categories
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<Category> getAllCategories() {
-        return categoriesRepository.findAll();
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> listeCategory =  categoriesRepository.findAll();
+        if (listeCategory.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Catégorie trouvée.");
+        } else {
+            return ResponseEntity.ok(listeCategory);
+        }
     }
 
     //get category by id

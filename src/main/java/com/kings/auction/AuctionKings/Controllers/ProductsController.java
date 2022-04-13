@@ -37,8 +37,13 @@ public class ProductsController {
     //get all products
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> listeProducts =  productRepository.findAll();
+        if (listeProducts.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucun Produit trouvé.");
+        } else {
+            return ResponseEntity.ok(listeProducts);
+        }
     }
 
     //get product by id
