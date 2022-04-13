@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.kings.auction.AuctionKings.Models.BDD.User;
 import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/users")
@@ -38,8 +40,9 @@ public class UsersController {
 
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public User getUserById(@PathVariable Integer id) {
-        return userRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+        User user = userRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/add")
@@ -52,7 +55,7 @@ public class UsersController {
     @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
-        User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        User currentUser = userRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currentUser.setFirstname(user.getFirstname());
         currentUser.setLastname(user.getLastname());
         currentUser.setEmail(user.getEmail());

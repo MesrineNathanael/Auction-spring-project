@@ -5,11 +5,14 @@ import java.util.List;
 import com.kings.auction.AuctionKings.Models.BDD.Category;
 import com.kings.auction.AuctionKings.Repositories.CategoryRepository;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/categories")
@@ -32,8 +35,9 @@ public class CategoriesController {
     //get category by id
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public Category getCategoryById(@PathVariable Integer id) {
-        return categoriesRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Category> getCategoryById(@PathVariable Integer id) {
+        Category category = categoriesRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(category);
     }
     
     //add category

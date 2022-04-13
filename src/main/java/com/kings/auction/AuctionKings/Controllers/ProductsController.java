@@ -8,6 +8,7 @@ import com.kings.auction.AuctionKings.Models.BDD.User;
 import com.kings.auction.AuctionKings.Repositories.ProductRepository;
 import com.kings.auction.AuctionKings.Repositories.UserRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/products")
@@ -42,8 +44,9 @@ public class ProductsController {
     //get product by id
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public Product getProductById(@PathVariable Integer id) {
-        return productRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
+        Product product = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(product);
     }
 
     //add product
@@ -58,7 +61,7 @@ public class ProductsController {
     @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
-        Product currentProduct = productRepository.findById(id).orElseThrow(RuntimeException::new);
+        Product currentProduct = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currentProduct.setName(product.getName());
         currentProduct.setDescription(product.getDescription());
         currentProduct.setStatus(product.getStatus());
