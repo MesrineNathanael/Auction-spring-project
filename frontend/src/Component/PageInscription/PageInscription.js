@@ -3,10 +3,12 @@ import React from "react";
 import { Form, Row, Col } from "reactstrap";
 import "./PageInscription.css";
 
+
 export default function PageInscription() {
 
     //registration page
-
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    
     //state of the form
     const [formState, setFormState] = React.useState({
         username: "",
@@ -50,6 +52,33 @@ export default function PageInscription() {
             return;
         }
 
+        const checkEmail = () =>{
+            if(formState.email.match(regex)){
+                return formState.email
+            } else {
+                alert("Votre email n'est pas valide")
+                return undefined
+            }
+        }
+
+        const checkCp = () =>{
+            if(formState.zipCode.length === 5){
+                return formState.zipCode
+            } else {
+                alert("Votre code postal n'est pas valide")
+                return undefined
+            }
+        }
+
+        const checkPhone = () =>{
+            if(formState.phone.length === 10){
+                return formState.phone
+            } else {
+                alert("Votre Téléphone n'est pas valide")
+                return undefined
+            }
+        }
+
         event.preventDefault();
         console.log(formState);
         //send the form to the server via rest api
@@ -60,10 +89,10 @@ export default function PageInscription() {
             username: formState.username,
             firstname: formState.firstName,
             lastname: formState.lastName,
-            email: formState.email,
-            phoneNumber: formState.phone,
+            email: checkEmail(),
+            phoneNumber: checkPhone(),
             street: formState.address,
-            postalCode: formState.zipCode,
+            postalCode: checkCp(),
             city: formState.city,
             password: formState.password,
         };
@@ -94,7 +123,7 @@ export default function PageInscription() {
                         .then((data) => {
                             console.log("User found after sign in : " + data);
                             //test if the user is found
-                            if (data !== null) {
+                            if ("email" && "postalCode" && "phoneNumber" in data) {
                                 //redirect to the home page
                                 window.sessionStorage.setItem("isConnected", true);
                                 window.sessionStorage.setItem("user", JSON.stringify(data));
@@ -201,7 +230,7 @@ export default function PageInscription() {
                         <div>
                             <label>Code Postal :                       </label>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Code Postal"
                                 name="zipCode"
                                 value={formState.zipCode}
@@ -211,7 +240,7 @@ export default function PageInscription() {
                         <div>
                             <label>Téléphone :                             </label>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Téléphone"
                                 name="phone"
                                 value={formState.phone}

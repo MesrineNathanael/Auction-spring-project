@@ -41,11 +41,9 @@ class Home extends Component {
     filterProducts(searchName){
         this.setState({searchBar: searchName})
 
-        console.log("clients : " + this.state.searchBar)
         if(searchName != ""){
             this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
         }else{
-            console.log("vide");
             this.setState({productsToShow: this.state.products})
         }
 
