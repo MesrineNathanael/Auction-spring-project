@@ -16,8 +16,8 @@ class Home extends Component {
         products: [],
         users: [],
         productsToShow: [],
-        searchBar: ""
-
+        searchBar: "",
+        categBar: 0
     };
 
     componentDidMount() {
@@ -49,6 +49,17 @@ class Home extends Component {
 
     }
 
+    filterCategories(categBar){
+        this.setState({categBar: categBar})
+
+        if(categBar != 0){
+            this.setState({productsToShow: this.state.products.filter(product => product.idCategoryProduct == categBar)});
+        }else{
+            this.setState({productsToShow: this.state.products})
+        }
+
+    }
+
     render() {
         return (
             <div className={styles.main}>
@@ -69,7 +80,7 @@ class Home extends Component {
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
                                 <InputLabel id="Select_categ">Catégories</InputLabel>
-                                <Select label="Catégories" labelId="Select_categ">
+                                <Select label="Catégories" labelId="Select_categ" onChange={(e) => this.filterCategories(e.target.value)}>
                                     <MenuItem value={0}>-------</MenuItem>
                                     {this.state.categories.map((cat) =>
                                         <MenuItem value={cat.idCategory}>{cat.name}</MenuItem>
