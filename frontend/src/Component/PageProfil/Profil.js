@@ -1,18 +1,23 @@
 import { Button, Form } from "reactstrap";
-import Home from '../Home';
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./Profil.css";
-import { Redirect } from "react-router-dom";
-import { Switch } from "react-router-dom";
-import { Route } from "react-router-dom";
 
 
 class Profil extends Component {
 
+    
+    constructor(props){
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
+
     state = {
         user:[]
     };
+    jsonUser = JSON.parse(window.sessionStorage.getItem("user"));
     componentDidMount() {
         fetch('http://localhost:8080/users/'+this.props.match.params.id,{
             method: 'GET',
@@ -82,8 +87,47 @@ class Profil extends Component {
         this.setState(stateCopy);
       }
 
+      //handle submit of the form
+    handleSubmit(event){
+        //check if fields are filled
+        let stateCopy = this.state.user;
+        if (
+            stateCopy.username === "" ||
+            stateCopy.lastname === "" ||
+            stateCopy.firstname === "" ||
+            stateCopy.city === "" ||
+            stateCopy.phoneNumber === "" ||
+            stateCopy.password === "" ||
+            stateCopy.email === "" ||
+            stateCopy.street === "" ||
+            stateCopy.postalCode === ""
+        ) {
+            alert("Veuillez remplir tous les champs");
+            return;
+        }
+
+
+        event.preventDefault();
+
+        //send the form to the server via rest api
+        //rest api address : http://localhost:8080/users/add
+        //redirect to the login page
+        var url = "http://localhost:8080/users/update/"+this.jsonUser.id;
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(stateCopy),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+        })
+    };
+
     render(){
-        let jsonUser = JSON.parse(window.sessionStorage.getItem("user"));
         return(
             <div className="content-profile">
             <h1 className="profile-edit-title">Profil</h1>
@@ -98,7 +142,7 @@ class Profil extends Component {
                                 name="username"
                                 value={this.state.user.username}
                                 onChange={(e) => this.handleChangeUsername(e.target.value)}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -109,7 +153,7 @@ class Profil extends Component {
                                 name="lastName"
                                 onChange={(e) => this.handleChangeLastName(e.target.value)}
                                 value={this.state.user.lastname}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -120,7 +164,7 @@ class Profil extends Component {
                                 name="city"
                                 onChange={(e) => this.handleChangeCity(e.target.value)}
                                 value={this.state.user.city}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -131,7 +175,7 @@ class Profil extends Component {
                                 name="phone"
                                 onChange={(e) => this.handleChangePhone(e.target.value)}
                                 value={this.state.user.phoneNumber}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -142,7 +186,7 @@ class Profil extends Component {
                                 name="password"
                                 onChange={(e) => this.handleChangePassword(e.target.value)}
                                 value={this.state.user.password}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                     </div>
@@ -156,7 +200,7 @@ class Profil extends Component {
                                 name="email"
                                 onChange={(e) => this.handleChangeMail(e.target.value)}
                                 value={this.state.user.email}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -167,7 +211,7 @@ class Profil extends Component {
                                 name="firstName"
                                 onChange={(e) => this.handleChangeFirstName(e.target.value)}
                                 value={this.state.user.firstname}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -178,7 +222,7 @@ class Profil extends Component {
                                 name="address"
                                 onChange={(e) => this.handleChangeStreet(e.target.value)}
                                 value={this.state.user.street}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -189,7 +233,7 @@ class Profil extends Component {
                                 name="zipCode"
                                 onChange={(e) => this.handleChangePostalCode(e.target.value)}
                                 value={this.state.user.postalCode}
-                                disabled={!(jsonUser.id === this.state.user.id)}
+                                disabled={!(this.jsonUser.id === this.state.user.id)}
                             />
                         </div>
                         <div>
@@ -205,9 +249,9 @@ class Profil extends Component {
                     </div>
                 </div>
             </Form>
-            {jsonUser.id === this.state.user.id ? 
+            {this.jsonUser.id === this.state.user.id ? 
                     
-                <Button className="inscription-button" type="submit">
+                <Button className="inscription-button" type="submit" onClick={this.handleSubmit}>
                     Modifier le profil
                 </Button>
                     

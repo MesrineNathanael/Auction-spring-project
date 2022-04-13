@@ -61,9 +61,14 @@ public class UsersController {
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
         User currentUser = userRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        currentUser.setUsername(user.getUsername());
         currentUser.setFirstname(user.getFirstname());
         currentUser.setLastname(user.getLastname());
         currentUser.setEmail(user.getEmail());
+        currentUser.setPhoneNumber(user.getPhoneNumber());
+        currentUser.setStreet(user.getStreet());
+        currentUser.setPostalCode(user.getPostalCode());
+        currentUser.setCity(user.getCity());
         currentUser.setPassword(user.getPassword());
 
         currentUser = userRepository.save(currentUser);

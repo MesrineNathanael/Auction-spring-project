@@ -1,6 +1,6 @@
-import { Button, Container, FormFeedback } from "reactstrap";
+import { Button} from "reactstrap";
 import React from "react";
-import { Form, Row, Col } from "reactstrap";
+import { Form } from "reactstrap";
 import { MenuItem, Select, FormControl, InputLabel} from "@mui/material";
 import { Box } from "@mui/system";
 import "./PageAuctionSell.css"
@@ -8,26 +8,27 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 class AuctionSell extends Component {
-
     constructor(props){
         super(props);
-        this.state = {name: '',value: '', categories:[]};
-    
-        this.data = {
-            name: '',
-            description: '',
-            dateBegin: '',
-            dateEnd: '',
-            base_Price: '',
-            status: '',
-            idCategoryProduct: '',
-            idUserSeller: ''
-        };
-
-        this.jsonUser = JSON.parse(window.sessionStorage.getItem("user"));
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    jsonUser = JSON.parse(window.sessionStorage.getItem("user"));
+
+    productState = {
+        name: '',
+        description: '',
+        dateBegin: '',
+        dateEnd: '',
+        basePrice: '',
+        status: '',
+        idCategoryProduct: '',
+        idUserSeller: this.jsonUser.id
+    };
+    state = {
+        product : this.productState,
+        categories:[]
+    };
 
     componentDidMount(){
         fetch('http://localhost:8080/categories/all', {
@@ -37,26 +38,55 @@ class AuctionSell extends Component {
         .then((data) => this.setState({categories:data}));
     }
 
-    //handle change of the form
-    handleChange(event){
-        const { name, value } = event.target;
-        this.setState({name:name, value:value})
-    };
+    handleChangeName(event){
+        let stateCopy = this.state.product;
+        stateCopy.name = event;
+        this.setState(stateCopy);
 
-
-
+    }
+    handleChangeDesc(event){
+        let stateCopy = this.state.product;
+        stateCopy.description = event;
+        this.setState(stateCopy);
+    }
+    handleChangeDateBegin(event){
+        let stateCopy = this.state.product;
+        stateCopy.dateBegin = event;
+        this.setState(stateCopy);
+    }
+    handleChangeDateEnd(event){
+        let stateCopy = this.state.product;
+        stateCopy.dateEnd = event;
+        this.setState(stateCopy);
+    }
+    handleChangeBasePrice(event){
+        let stateCopy = this.state.product;
+        stateCopy.basePrice = event;
+        this.setState(stateCopy);
+    }
+    handleChangeStatus(event){
+        let stateCopy = this.state.product;
+        stateCopy.status = event;
+        this.setState(stateCopy);
+    }
+    handleChangeidCategory(event){
+        let stateCopy = this.state.product;
+        stateCopy.idCategoryProduct = event;
+        this.setState(stateCopy);
+    }
 
     //handle submit of the form
     handleSubmit(event){
         //check if fields are filled
+        let stateCopy = this.state.product;
         if (
-            this.data.name === "" ||
-            this.data.description === "" ||
-            this.data.date_Begin === "" ||
-            this.data.date_End === "" ||
-            this.data.basePrice === "" ||
-            this.data.status === "" ||
-            this.data.idCatProduct === ""
+            stateCopy.name === "" ||
+            stateCopy.description === "" ||
+            stateCopy.dateBegin === "" ||
+            stateCopy.dateEnd === "" ||
+            stateCopy.basePrice === "" ||
+            stateCopy.status === "" ||
+            stateCopy.idCatProduct === ""
         ) {
             alert("Veuillez remplir tous les champs");
             return;
@@ -69,23 +99,13 @@ class AuctionSell extends Component {
         //rest api address : http://localhost:8080/users/add
         //redirect to the login page
         var url = "http://localhost:8080/products/add";
-        var data = {
-            name: this.data.name,
-            description: this.data.description,
-            dateBegin: this.data.date_Begin,
-            dateEnd: this.data.date_End,
-            base_Price: this.data.basePrice,
-            status: this.data.status,
-            idCategoryProduct: this.data.idCatProduct,
-            idUserSeller: this.jsonUser.id
-        };
         fetch(url, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(stateCopy),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -94,7 +114,6 @@ class AuctionSell extends Component {
     };
 
     render() {
-        console.log(this.state.products)
         return (
             <div className="content-profile">
                 <h1 className="profile-edit-title">Inscription</h1>
@@ -110,8 +129,8 @@ class AuctionSell extends Component {
                                     type="text"
                                     placeholder="Nom"
                                     name="name"
-                                    value={this.data.name}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.name}
+                                    onChange={(e) => this.handleChangeName(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -120,8 +139,8 @@ class AuctionSell extends Component {
                                     type="text"
                                     placeholder="Description"
                                     name="description"
-                                    value={this.data.description}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.description}
+                                    onChange={(e) => this.handleChangeDesc(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -130,8 +149,8 @@ class AuctionSell extends Component {
                                     type="date"
                                     placeholder="Date de Début"
                                     name="date_Begin"
-                                    value={this.data.date_Begin}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.date_Begin}
+                                    onChange={(e) => this.handleChangeDateBegin(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -140,8 +159,8 @@ class AuctionSell extends Component {
                                     type="date"
                                     placeholder="Date de Fin"
                                     name="date_End"
-                                    value={this.data.date_End}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.date_End}
+                                    onChange={(e) => this.handleChangeDateEnd(e.target.value)}
                                 />
                             </div>
                             <div>
@@ -150,8 +169,8 @@ class AuctionSell extends Component {
                                     type="text"
                                     placeholder="Prix de Base"
                                     name="basePrice"
-                                    value={this.data.basePrice}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.basePrice}
+                                    onChange={(e) => this.handleChangeBasePrice(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -163,15 +182,15 @@ class AuctionSell extends Component {
                                     type="text"
                                     placeholder="Status"
                                     name="status"
-                                    value={this.data.status}
-                                    onChange={this.handleChange}
+                                    value={this.state.product.status}
+                                    onChange={(e) => this.handleChangeStatus(e.target.value)}
                                 />
                             </div>
                             <div>
                                 <Box className="box"  sx={{ minWidth: 120 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="AuctionSell_cat">Catégories</InputLabel>
-                                        <Select className="cat" label="Catégories" labelId="AuctionSell_cat">
+                                        <Select className="cat" label="Catégories" labelId="AuctionSell_cat" onChange={(e) => this.handleChangeidCategory(e.target.value)}>
                                             <MenuItem>-------</MenuItem>
                                             {this.state.categories.map((cat) =>
                                                 <MenuItem value={cat.idCategory}>{cat.name}</MenuItem>
