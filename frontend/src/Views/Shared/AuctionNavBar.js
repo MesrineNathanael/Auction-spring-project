@@ -21,7 +21,7 @@ class AuctionNavBar extends Component{
         
         return(
             <div className={styles.navbar}>
-                <Link to="/">
+                <Link onClick={() => {window.location.href="/"}}>
                     <img alt="Auction Kings" className={styles.img} src={logo}></img>
                 </Link>
                 {}
@@ -29,25 +29,25 @@ class AuctionNavBar extends Component{
 
                 {!isConnected ?
                     <>
-                    <Link to="/connection">
+                    <Link href="/connection">
                         <h2>Connexion</h2>
                     </Link>
-                    <Link to='/inscription'>
+                    <Link href='/inscription'>
                         <h2>Inscription</h2>
                     </Link>
                     </> 
                     :
                     <>
-                    <Link to="/mesEncheres">
+                    <Link href="/mesEncheres">
                         <h2>Enchères</h2>
                     </Link>
-                    <Link to='/vendre'>
+                    <Link href='/vendre'>
                         <h2>Vendre un article</h2>
                     </Link>
-                    <Link to={"/profil/"+JSON.parse(window.sessionStorage.getItem("user")).id}>
+                    <Link onClick={() => {window.location.href="/profil/"+JSON.parse(window.sessionStorage.getItem("user")).id}}>
                         <h2>Mon profil</h2>
                     </Link>
-                    <Link to='/'>
+                    <Link href='/'>
                         <h2 onClick={this.logout}>Déconnexion</h2>
                     </Link>
                     </> 
