@@ -16,29 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auctions")
 public class AuctionsController {
-    
+
     public final AuctionRepository auctionRepository;
 
-    //ctor
+    // ctor
     public AuctionsController(AuctionRepository auctionRepository) {
         this.auctionRepository = auctionRepository;
     }
 
-    //get all auctions
+    // get all auctions
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public List<Auction> getAllAuctions() {
         return auctionRepository.findAll();
     }
 
-    //get auction by id
+    // get auction by id
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public Auction getAuctionById(@PathVariable Integer id) {
         return auctionRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    //add auction
+    // add auction
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Auction> createAuction(@RequestBody Auction auction) {
@@ -46,4 +46,17 @@ public class AuctionsController {
         return ResponseEntity.ok(savedAuction);
     }
 
+    // get auctions by user id
+    @RequestMapping("/user/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+    public List<Auction> getAuctionsByIdUserAuction(@PathVariable Integer id) {
+        return auctionRepository.findByIdUserAuction(id);
+    }
+
+    // get auctions by product id
+    @RequestMapping("/product/{id}")
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+    public List<Auction> getAuctionsByIdProductAuction(@PathVariable Integer id) {
+        return auctionRepository.findByIdProductAuction(id);
+    }
 }
