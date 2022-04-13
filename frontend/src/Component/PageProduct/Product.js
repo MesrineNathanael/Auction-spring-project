@@ -55,18 +55,57 @@ export default function Product() {
 
 
     //get the product from the session storage and map it to the product details page
-    var productId = JSON.parse(sessionStorage.getItem("product")).id;
-    var productName = JSON.parse(sessionStorage.getItem("product")).name;
-    var productImage = JSON.parse(sessionStorage.getItem("product")).image;
-    var productDesc = JSON.parse(sessionStorage.getItem("product")).description;
-    var productBasePrice = JSON.parse(sessionStorage.getItem("product")).basePrice;
-    var productEnd = JSON.parse(sessionStorage.getItem("product")).dateEnd;
+    var productId = JSON.parse(sessionStorage.getItem("productId"));
+    var productName = JSON.parse(sessionStorage.getItem("product")).name ?? "";
+    var productImage = JSON.parse(sessionStorage.getItem("product")).image ?? "";
+    var productDesc = JSON.parse(sessionStorage.getItem("product")).description ?? "";
+    var productBasePrice = JSON.parse(sessionStorage.getItem("product")).basePrice ?? "";
+    var productEnd = JSON.parse(sessionStorage.getItem("product")).dateEnd ?? "";
 
-    var productWithdrawId = JSON.parse(sessionStorage.getItem("product")).idWithdrawProduct;
-    var productSellerId = JSON.parse(sessionStorage.getItem("product")).idUserSeller;
+    var productWithdrawId = JSON.parse(sessionStorage.getItem("product")).idWithdrawProduct ?? "";
+    var productSellerId = JSON.parse(sessionStorage.getItem("product")).idUserSeller ?? "";
     var productSellerName = "";
 
-    var productSellPrice = JSON.parse(sessionStorage.getItem("auctions")).priceAuction;
+    var productSellPrice = JSON.parse(sessionStorage.getItem("auctions")).priceAuction ?? "";
+
+    var bestBidderId = "";
+    var bestBidderName = "";
+
+    //if the auctions are not empty, get the seller name who bet the most from the auctions sessionstorage
+    const getBestBidder = () => {
+        if (JSON.parse(sessionStorage.getItem("auctions")).length > 0) {
+            var max = 0;
+            var maxIndex = 0;
+            for (var i = 0; i < JSON.parse(sessionStorage.getItem("auctions")).length; i++) {
+                if (JSON.parse(sessionStorage.getItem("auctions"))[i].priceAuction > max) {
+                    max = JSON.parse(sessionStorage.getItem("auctions"))[i].priceAuction;
+                    maxIndex = i;
+                }
+            }
+            productSellerId = JSON.parse(sessionStorage.getItem("auctions"))[maxIndex].idUserAuction;
+            productSellPrice = JSON.parse(sessionStorage.getItem("auctions"))[maxIndex].priceAuction;
+            //get the seller name from the rest api
+            const getSellerName = async () => {
+                const response = await fetch(
+                    "http://localhost:8080/users/" + productSellerId,
+                    {
+                        method: "GET",
+                    }
+                );
+                const data = await response.json();
+                return data;
+            };
+            getSellerName().then((data) => {
+                sessionStorage.setItem("bestBidder", JSON.stringify(data));
+            }
+            
+            );
+            bestBidderId = JSON.parse(sessionStorage.getItem("bestBidder")).id;
+            bestBidderName = JSON.parse(sessionStorage.getItem("bestBidder")).name;
+        }
+    };
+
+    getBestBidder();
 
 
     fetch('http://localhost:8080/users/' + productSellerId, {
@@ -87,28 +126,27 @@ export default function Product() {
     //const on change
     const onChange = (e) => {
         priceBid = e.target.value;
-        console.log(priceBid);
     };
 
     const onClick = (e) => {
         e.preventDefault();
-        console.log(priceBid + " bidded");
-        //check ifthe amount is superior to the current sell price
-        getProductDetails().then((data) => {
-            sessionStorage.setItem("product", JSON.stringify(data));
-        });
-        if (priceBid > JSON.parse(sessionStorage.getItem("product")).sellPrice) {
+        console.log(priceBid + " try to be bidded");
+
+        getBestBidder();
+        if (priceBid <= productSellPrice) {
             //send the bid to the server
             //redirect to the login page
-            alert("Votre offre est inferieur à la meilleure offre");
+            alert("Votre offre de ["+priceBid+"] est inferieur à la meilleure offre qui est de ["+productSellPrice+"]");
+            window.location.reload(false);
             return;
         }
         else {
             //send the bid to the server
-            var url = "http://localhost:8080/products/update/" + productId;
+            var url = "http://localhost:8080/auctions/add";
             var data = {
-                idUser: user.id,
-                price: priceBid,
+                idUserAuction: user.id,
+                idProductAuction: productId,
+                priceAuction: priceBid,
             };
             fetch(url, {
                 method: "POST",
@@ -146,7 +184,9 @@ export default function Product() {
                             <h3 className="product-title">{productName}</h3>
                             <h4 className="product-description">Description :</h4>
                             <p className="product-description">{productDesc}</p>
-                            <h4 className="price">Meilleure offre :<span>{productSellPrice} croquettes par {productSellerName}</span></h4>
+                            <h4 className="price">Meilleure offre :{
+                                bestBidderName === "" ? " Aucune offre" : (<span>{productSellPrice} croquettes par {productSellerName}</span>)
+                            }</h4>
                             <h4 className="price">Mise a prix :<span>{productBasePrice} croquettes</span></h4>
                             <br>
                             </br>
@@ -158,11 +198,19 @@ export default function Product() {
                             <br></br>
                             <div className="action">
                                 <Form>
-                                    <div className="form-group">
-                                        <label htmlFor="lbl">Prix</label>
-                                        <input type="number" onChange={onChange} placeholder={productSellPrice} className="form-control" id="lbl" aria-describedby="emailHelp" />
-                                        <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
-                                    </div>
+                                    {
+                                        //if the user is logged in
+                                        sessionStorage.getItem("isConnected") === "true" ? (
+                                            <div className="form-group">
+                                            <label htmlFor="lbl">Prix</label>
+                                            <input type="number" onChange={onChange} placeholder={productSellPrice} className="form-control" id="lbl" aria-describedby="emailHelp" />
+                                            <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
+                                            </div>) : (
+                                            <div className="form-group">
+                                                <label htmlFor="lbl">Vous devez etre connectez pour encherir</label>
+                                            </div>)
+                                    }
+
                                 </Form>
                             </div>
                         </div>
