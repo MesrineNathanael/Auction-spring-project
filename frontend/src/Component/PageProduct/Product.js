@@ -1,9 +1,6 @@
 //react imoports
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { Form } from "reactstrap";
-import { useParams } from 'react-router-dom';
-import { Button } from "reactstrap";
 
 //product details page
 export default function Product() {
@@ -14,17 +11,29 @@ export default function Product() {
             });
         });
     };
+
     clearCacheData();
+
+    //check if a counter is set in session storage
+    if (sessionStorage.getItem("counter") === null) {
+        //if not set, set it to 0
+        sessionStorage.setItem("counter", 0);
+    }
+    //if a counter is set, increment it
+    else {
+        sessionStorage.setItem("counter", parseInt(sessionStorage.getItem("counter")) + 1);
+    }
+
+    
 
     //get the user from the session storage
     const user = JSON.parse(sessionStorage.getItem("user"));
+    var productId = JSON.parse(sessionStorage.getItem("productId"));
 
-    const id = JSON.parse(sessionStorage.getItem("productId"));
-    var idStr = id.toString();
     //get the product from the rest api
     const getProductDetails = async () => {
         const response = await fetch(
-            "http://localhost:8080/products/" + idStr,
+            "http://localhost:8080/products/" + productId,
             {
                 method: "GET",
             }
@@ -36,7 +45,7 @@ export default function Product() {
     //get the auctions from the rest api
     const getAuctions = async () => {
         const response = await fetch(
-            "http://localhost:8080/auctions/product/" + idStr,
+            "http://localhost:8080/auctions/product/" + productId,
             {
                 method: "GET",
             }
@@ -47,6 +56,12 @@ export default function Product() {
 
     getProductDetails().then((data) => {
         sessionStorage.setItem("product", JSON.stringify(data));
+        if (parseInt(sessionStorage.getItem("counter")) >= 3) {
+            //refresh the page
+            window.location.reload();
+            //set the counter to 0
+            sessionStorage.setItem("counter", 0);
+        }
     });
 
     getAuctions().then((data) => {
@@ -55,7 +70,7 @@ export default function Product() {
 
 
     //get the product from the session storage and map it to the product details page
-    var productId = JSON.parse(sessionStorage.getItem("productId"));
+
     var productName = JSON.parse(sessionStorage.getItem("product")).name ?? "";
     var productImage = JSON.parse(sessionStorage.getItem("product")).image ?? "";
     var productDesc = JSON.parse(sessionStorage.getItem("product")).description ?? "";
@@ -75,7 +90,7 @@ export default function Product() {
     //check if product details are not empty
     if (productName === "" && productBasePrice === "") {
         //redirect to the home page
-        
+
     }
 
     //if the auctions are not empty, get the seller name who bet the most from the auctions sessionstorage
@@ -105,7 +120,7 @@ export default function Product() {
             getSellerName().then((data) => {
                 sessionStorage.setItem("bestBidder", JSON.stringify(data));
             }
-            
+
             );
             bestBidderId = JSON.parse(sessionStorage.getItem("bestBidder")).id;
             bestBidderName = JSON.parse(sessionStorage.getItem("bestBidder")).username;
@@ -113,7 +128,6 @@ export default function Product() {
     };
 
     getBestBidder();
-
 
     fetch('http://localhost:8080/users/' + productBaseSellerId, {
         method: 'GET',
@@ -143,7 +157,7 @@ export default function Product() {
         if (priceBid <= productSellPrice) {
             //send the bid to the server
             //redirect to the login page
-            alert("Votre offre de ["+priceBid+"] est inferieur à la meilleure offre qui est de ["+productSellPrice+"]");
+            alert("Votre offre de [" + priceBid + "] est inferieur à la meilleure offre qui est de [" + productSellPrice + "]");
             window.location.reload(false);
             return;
         }
@@ -174,6 +188,13 @@ export default function Product() {
                 });
         }
     };
+
+    //check if the product id is equal to the product id in the session storage
+    if (productId !== JSON.parse(sessionStorage.getItem("product")).id) {
+        //if counter is greater than 1
+
+        //when the product is loaded, redirect to the home page
+    }
 
     return (
         <div className="container">
@@ -210,9 +231,9 @@ export default function Product() {
                                         //if the user is logged in
                                         sessionStorage.getItem("isConnected") === "true" ? (
                                             <div className="form-group">
-                                            <label htmlFor="lbl">Prix</label>
-                                            <input type="number" onChange={onChange} placeholder={productSellPrice} className="form-control" id="lbl" aria-describedby="emailHelp" />
-                                            <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
+                                                <label htmlFor="lbl">Prix</label>
+                                                <input type="number" onChange={onChange} placeholder={productSellPrice + " minimum"} className="form-control" id="lbl" aria-describedby="emailHelp" />
+                                                <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
                                             </div>) : (
                                             <div className="form-group">
                                                 <label htmlFor="lbl">Vous devez etre connectez pour encherir</label>
