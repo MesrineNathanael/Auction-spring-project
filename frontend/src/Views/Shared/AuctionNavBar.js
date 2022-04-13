@@ -29,25 +29,25 @@ class AuctionNavBar extends Component{
 
                 {!isConnected ?
                     <>
-                    <Link href="/connection">
+                    <Link to="/connection">
                         <h2>Connexion</h2>
                     </Link>
-                    <Link href='/inscription'>
+                    <Link to='/inscription'>
                         <h2>Inscription</h2>
                     </Link>
                     </> 
                     :
                     <>
-                    <Link href="/mesEncheres">
+                    <Link to="/mesEncheres">
                         <h2>Enchères</h2>
                     </Link>
-                    <Link href='/vendre'>
+                    <Link to='/vendre'>
                         <h2>Vendre un article</h2>
                     </Link>
                     <Link onClick={() => {window.location.href="/profil/"+JSON.parse(window.sessionStorage.getItem("user")).id}}>
                         <h2>Mon profil</h2>
                     </Link>
-                    <Link href='/'>
+                    <Link to='/'>
                         <h2 onClick={this.logout}>Déconnexion</h2>
                     </Link>
                     </> 
