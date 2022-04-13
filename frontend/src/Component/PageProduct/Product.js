@@ -211,7 +211,7 @@ export default function Product() {
                                         sessionStorage.getItem("isConnected") === "true" ? (
                                             <div className="form-group">
                                             <label htmlFor="lbl">Prix</label>
-                                            <input type="number" onChange={onChange} placeholder={productSellPrice} className="form-control" id="lbl" aria-describedby="emailHelp" />
+                                            <input type="number" onChange={onChange} placeholder={productSellPrice + " minimum"} className="form-control" id="lbl" aria-describedby="emailHelp" />
                                             <button className="add-to-cart btn btn-default" onClick={onClick} type="button">Encherir</button>
                                             </div>) : (
                                             <div className="form-group">
