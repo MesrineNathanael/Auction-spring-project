@@ -60,16 +60,23 @@ export default function Product() {
     var productImage = JSON.parse(sessionStorage.getItem("product")).image ?? "";
     var productDesc = JSON.parse(sessionStorage.getItem("product")).description ?? "";
     var productBasePrice = JSON.parse(sessionStorage.getItem("product")).basePrice ?? "";
+    var productBaseSellerId = JSON.parse(sessionStorage.getItem("product")).idUserSeller ?? "";
     var productEnd = JSON.parse(sessionStorage.getItem("product")).dateEnd ?? "";
 
     var productWithdrawId = JSON.parse(sessionStorage.getItem("product")).idWithdrawProduct ?? "";
-    var productSellerId = JSON.parse(sessionStorage.getItem("product")).idUserSeller ?? "";
+    var productSellerId = "";
     var productSellerName = "";
 
     var productSellPrice = JSON.parse(sessionStorage.getItem("auctions")).priceAuction ?? "";
 
     var bestBidderId = "";
     var bestBidderName = "";
+
+    //check if product details are not empty
+    if (productName === "" && productBasePrice === "") {
+        //redirect to the home page
+        
+    }
 
     //if the auctions are not empty, get the seller name who bet the most from the auctions sessionstorage
     const getBestBidder = () => {
@@ -101,14 +108,14 @@ export default function Product() {
             
             );
             bestBidderId = JSON.parse(sessionStorage.getItem("bestBidder")).id;
-            bestBidderName = JSON.parse(sessionStorage.getItem("bestBidder")).name;
+            bestBidderName = JSON.parse(sessionStorage.getItem("bestBidder")).username;
         }
     };
 
     getBestBidder();
 
 
-    fetch('http://localhost:8080/users/' + productSellerId, {
+    fetch('http://localhost:8080/users/' + productBaseSellerId, {
         method: 'GET',
     })
         .then((response) => response.json())
@@ -146,6 +153,7 @@ export default function Product() {
             var data = {
                 idUserAuction: user.id,
                 idProductAuction: productId,
+                dateTimeAuction: new Date().getTime().toString(),
                 priceAuction: priceBid,
             };
             fetch(url, {
@@ -160,8 +168,8 @@ export default function Product() {
                 .then((data) => {
                     //test if the product is found
                     if (data !== null) {
-                        //save the product in the session storage
-                        sessionStorage.setItem("product", JSON.stringify(data));
+                        //refresh the page
+                        window.location.reload(false);
                     }
                 });
         }
@@ -185,7 +193,7 @@ export default function Product() {
                             <h4 className="product-description">Description :</h4>
                             <p className="product-description">{productDesc}</p>
                             <h4 className="price">Meilleure offre :{
-                                bestBidderName === "" ? " Aucune offre" : (<span>{productSellPrice} croquettes par {productSellerName}</span>)
+                                bestBidderName === "" ? " Aucune offre" : (<span>{productSellPrice} croquettes par {bestBidderName}</span>)
                             }</h4>
                             <h4 className="price">Mise a prix :<span>{productBasePrice} croquettes</span></h4>
                             <br>
@@ -210,7 +218,6 @@ export default function Product() {
                                                 <label htmlFor="lbl">Vous devez etre connectez pour encherir</label>
                                             </div>)
                                     }
-
                                 </Form>
                             </div>
                         </div>
