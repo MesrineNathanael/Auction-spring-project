@@ -5,6 +5,7 @@ import java.util.List;
 import com.kings.auction.AuctionKings.Models.BDD.Auction;
 import com.kings.auction.AuctionKings.Repositories.AuctionRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/auctions")
@@ -34,8 +36,9 @@ public class AuctionsController {
     // get auction by id
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public Auction getAuctionById(@PathVariable Integer id) {
-        return auctionRepository.findById(id).orElseThrow(RuntimeException::new);
+    public ResponseEntity<Auction> getAuctionById(@PathVariable Integer id) {
+        Auction auction = auctionRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(auction);
     }
 
     // add auction
