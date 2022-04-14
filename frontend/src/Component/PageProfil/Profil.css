@@ -43,7 +43,7 @@
 
 .suppression-button {
   padding: 14px;
-  background-color: red;
+  background-color: #b71c1c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -54,7 +54,7 @@
 }
 
 .suppression-button:hover {
-  background-color: purple;
+  background-color: #7f0000;
   color: white;
 }
 
