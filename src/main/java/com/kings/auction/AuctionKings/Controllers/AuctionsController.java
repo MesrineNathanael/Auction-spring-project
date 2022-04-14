@@ -57,14 +57,22 @@ public class AuctionsController {
     // get auctions by user id
     @RequestMapping("/user/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<Auction> getAuctionsByIdUserAuction(@PathVariable Integer id) {
-        return auctionRepository.findByIdUserAuction(id);
+    public ResponseEntity<List<Auction>> getAuctionsByIdUserAuction(@PathVariable Integer id) {
+        List<Auction> auctions = auctionRepository.findByIdUserAuction(id);
+        if(auctions.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(auctions);
     }
 
     // get auctions by product id
     @RequestMapping("/product/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public List<Auction> getAuctionsByIdProductAuction(@PathVariable Integer id) {
-        return auctionRepository.findByIdProductAuction(id);
+    public ResponseEntity<List<Auction>> getAuctionsByIdProductAuction(@PathVariable Integer id) {
+        List<Auction> auctions = auctionRepository.findByIdProductAuction(id);
+        if(auctions.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(auctions);
     }
 }
