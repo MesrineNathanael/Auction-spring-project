@@ -107,8 +107,11 @@ class Profil extends Component {
                         //remove user from sessionStorage
                         window.sessionStorage.removeItem("user");
                         console.log("user deleted");
+                        //redirect to the main page
+                        window.location.href = "/";
                     } else {
-                        console.log("error");
+                        //say that the user is not deleted
+                        window.alert("Votre compte n'a pas pu être supprimé");
                     }
                 }
                 )
