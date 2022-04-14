@@ -47,20 +47,44 @@ class Home extends Component {
             this.setState({productsToShow: this.state.products})
         }
 
+        if(this.state.categBar != 0){
+            if(searchName != ""){
+                this.setState({productsToShow: this.state.productsToShow.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
+            }else{
+                this.setState({productsToShow: this.state.productsToShow})
+            }
+        } else{
+            if(searchName != ""){
+                this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
+            }else{
+                this.setState({productsToShow: this.state.products})
+            }
+        }
+
     }
 
     filterCategories(categBar){
         this.setState({categBar: categBar})
 
-        if(categBar != 0){
-            this.setState({productsToShow: this.state.products.filter(product => product.idCategoryProduct == categBar)});
-        }else{
-            this.setState({productsToShow: this.state.products})
+        if(this.state.searchBar != ""){
+            if(categBar != 0){
+                this.setState({productsToShow: this.state.productsToShow.filter(product => product.idCategoryProduct == categBar)});
+            }else{
+                this.setState({productsToShow: this.state.productsToShow})
+            }
+        } else{
+            if(categBar != 0){
+                this.setState({productsToShow: this.state.products.filter(product => product.idCategoryProduct ==categBar)});
+            }else{
+                this.setState({productsToShow: this.state.products})
+            }
         }
+
 
     }
 
     render() {
+        console.log(this.state.products)
         return (
             <div className={styles.main}>
                 <div className={styles.searchMain}>
