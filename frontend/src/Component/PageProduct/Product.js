@@ -21,6 +21,7 @@ class Product extends Component {
         userSeller:[],
         usersAuction:[],
         hasAuction:false,
+        isAuctionClosed:false,
         priceToBid:0
     }
 
@@ -67,6 +68,12 @@ class Product extends Component {
                     .then((data) => this.setState({ usersAuction: data}))
                 }}
             );
+
+            //check the status of the product
+            if(this.state.product.status === "closed"){
+                this.setState({isAuctionClosed:true});
+                console.log("closed");
+            }
     }
 
     onChange(event){
@@ -83,7 +90,7 @@ class Product extends Component {
             alert("Veuillez remplir tous les champs");
             return;
         } else if(this.state.priceToBid <= this.state.auctionMaxPrice.priceAuction){
-            alert("Enchère inferieure au prix affiché sale rat");
+            alert("Enchère inferieure au prix affiché");
             return;
         }
 
@@ -116,6 +123,7 @@ class Product extends Component {
         })
     };
 
+
     render(){
         return (
             <div className="container">
@@ -135,9 +143,9 @@ class Product extends Component {
                                 <h4 className="product-description">Description :</h4>
                                 <p className="product-description">{this.state.product.description}</p>
                                 <h4 className="price">Meilleure offre :{
-                                    !this.state.hasAuction ? " Aucune offre" : (<span>{this.state.auctionMaxPrice.priceAuction} croquettes par {this.state.userSeller.username}</span>)
+                                    !this.state.hasAuction ? " Aucune offre" : (<span>{this.state.auctionMaxPrice.priceAuction} credits par {this.state.userSeller.username}</span>)
                                 }</h4>
-                                <h4 className="price">Mise a prix :<span>{this.state.product.basePrice} croquettes</span></h4>
+                                <h4 className="price">Mise a prix :<span>{this.state.product.basePrice} credits</span></h4>
                                 <br>
                                 </br>
                                 <h4 className="price">Fin de l'enchere :<span>{this.state.product.dateEnd}</span></h4>
@@ -147,8 +155,12 @@ class Product extends Component {
                                 <div className="action">
                                     <Form>
                                         {
-                                            //if the user is logged in
-                                            sessionStorage.getItem("isConnected") === "true" ? (
+                                            this.state.isAuctionClosed ?
+                                            <Form controlId="formBasicEmail">
+                                                <div className="form-group">
+                                                    <label htmlFor="lbl">Enchere terminer</label>
+                                                </div>
+                                            </Form> : sessionStorage.getItem("isConnected") === "true" ? (
                                                 <div className="form-group">
                                                     <label htmlFor="lbl">Prix</label>
                                                     <input type="number" onChange={(e) => this.onChange(e.target.value)} placeholder={this.state.auctionMaxPrice.priceAuction + " minimum"} className="form-control" id="lbl" aria-describedby="emailHelp" />
