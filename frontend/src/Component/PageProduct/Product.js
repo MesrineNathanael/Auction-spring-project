@@ -133,7 +133,7 @@ class Product extends Component {
                             </div>
                             <div className="preview col-md-6">
                                 <div className="preview-pic tab-content">
-                                    <div className="tab-pane active" id="pic-1"><img src={this.state.product.image} /></div>
+                                    <div className="tab-pane active" id="pic-1"><img alt="NO LOGO" src={this.state.product.image} /></div>
                                 </div>
                             </div>
                             <div className="details col-md-6">

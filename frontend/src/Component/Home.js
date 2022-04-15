@@ -54,20 +54,20 @@ class Home extends Component {
     filterProducts(searchName){
         this.setState({searchBar: searchName})
 
-        if(searchName != ""){
+        if(searchName !== ""){
             this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
         }else{
             this.setState({productsToShow: this.state.products})
         }
 
-        if(this.state.categBar != 0){
-            if(searchName != ""){
+        if(this.state.categBar !== 0){
+            if(searchName !== ""){
                 this.setState({productsToShow: this.state.productsToShow.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
             }else{
                 this.setState({productsToShow: this.state.productsToShow})
             }
         } else{
-            if(searchName != ""){
+            if(searchName !== ""){
                 this.setState({productsToShow: this.state.products.filter(product => product.name.toUpperCase().includes(searchName.toUpperCase()))}) 
             }else{
                 this.setState({productsToShow: this.state.products})
@@ -79,15 +79,15 @@ class Home extends Component {
     filterCategories(categBar){
         this.setState({categBar: categBar})
 
-        if(this.state.searchBar != ""){
-            if(categBar != 0){
-                this.setState({productsToShow: this.state.productsToShow.filter(product => product.idCategoryProduct == categBar)});
+        if(this.state.searchBar !== ""){
+            if(categBar !== 0){
+                this.setState({productsToShow: this.state.productsToShow.filter(product => product.idCategoryProduct === categBar)});
             }else{
                 this.setState({productsToShow: this.state.productsToShow})
             }
         } else{
-            if(categBar != 0){
-                this.setState({productsToShow: this.state.products.filter(product => product.idCategoryProduct ==categBar)});
+            if(categBar !== 0){
+                this.setState({productsToShow: this.state.products.filter(product => product.idCategoryProduct === categBar)});
             }else{
                 this.setState({productsToShow: this.state.products})
             }
