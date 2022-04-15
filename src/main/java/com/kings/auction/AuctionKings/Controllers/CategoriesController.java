@@ -25,7 +25,10 @@ public class CategoriesController {
         this.categoriesRepository = categoriesRepository;
     }
 
-    //get all categories
+    /**
+     * Retrouve toutes les Catégories en BDD
+     * @return Liste de Catégories
+     */
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<Category>> getAllCategories() {
@@ -37,7 +40,11 @@ public class CategoriesController {
         }
     }
 
-    //get category by id
+    /**
+     * Retrouve une Catégorie selon son ID
+     * @param id
+     * @return Une Catégorie
+     */
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Category> getCategoryById(@PathVariable Integer id) {
@@ -45,19 +52,27 @@ public class CategoriesController {
         return ResponseEntity.ok(category);
     }
     
-    //add category
+    /**
+     * Permet d'ajouter une Catégorie
+     * @param category
+     * @return Une Catégorie
+     */
     @RequestMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public Category createCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
         Category savedCategory = categoriesRepository.save(category);
-        return savedCategory;
+        return ResponseEntity.ok(savedCategory);
     }
 
-    //delete category
+    /**
+     * Permet de supprimer une Catégorie selon son ID
+     * @param id
+     */
     @RequestMapping("/delete/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public void deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
         categoriesRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
     
 }

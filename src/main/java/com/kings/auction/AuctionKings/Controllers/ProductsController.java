@@ -34,7 +34,10 @@ public class ProductsController {
         this.userRepository = userRepository;
     }
 
-    //get all products
+    /**
+     * Permet de retrouver tous les Produits en BDD
+     * @return Liste de Produits
+     */
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -46,7 +49,11 @@ public class ProductsController {
         }
     }
 
-    //get product by id
+    /**
+     * Permet de retrouver un Produit grâce à son ID
+     * @param id
+     * @return Un Produit
+     */
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
@@ -54,7 +61,11 @@ public class ProductsController {
         return ResponseEntity.ok(product);
     }
 
-    //add product
+    /**
+     * Permet d'ajouter un Produit en BDD
+     * @param product
+     * @return Un Produit
+     */
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
@@ -62,7 +73,12 @@ public class ProductsController {
         return ResponseEntity.ok(savedProduct);
     }
 
-    //update product
+    /**
+     * Permet de mettre à jour un Produit
+     * @param id
+     * @param product
+     * @return Un Produit
+     */
     @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
@@ -74,7 +90,11 @@ public class ProductsController {
         return ResponseEntity.ok(currentProduct);
     }
 
-    //delete product
+    /**
+     * Permet de supprimer un Produit
+     * @param id
+     * @return Un Produit
+     */
     @PutMapping("/delete/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Product> deleteProduct(@PathVariable Integer id) {
@@ -83,6 +103,10 @@ public class ProductsController {
         return ResponseEntity.ok(currentProduct);
     }
 
+    /**
+     * Permet de retrouver le vendeur d'un Produit
+     * @return Liste de User
+     */
     @GetMapping("/seller/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<User>> findSeller() {

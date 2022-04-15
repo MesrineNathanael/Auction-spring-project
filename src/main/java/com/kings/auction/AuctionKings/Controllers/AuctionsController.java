@@ -26,7 +26,10 @@ public class AuctionsController {
         this.auctionRepository = auctionRepository;
     }
 
-    // get all auctions
+    /**
+     * Récupère toutes les Enchères en BDD 
+     * @return Liste D'Enchères 
+     */
     @RequestMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<Auction>> getAllAuctions() {
@@ -38,7 +41,11 @@ public class AuctionsController {
         }
     }
 
-    // get auction by id
+    /**
+     * Retrouve une Enchère selon son ID
+     * @param id
+     * @return une Enchère
+     */
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Auction> getAuctionById(@PathVariable Integer id) {
@@ -46,7 +53,11 @@ public class AuctionsController {
         return ResponseEntity.ok(auction);
     }
 
-    // add auction
+    /**
+     * Permet d'ajouter une Enchère en BDD
+     * @param auction
+     * @return Une Enchère
+     */
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<Auction> createAuction(@RequestBody Auction auction) {
@@ -54,7 +65,11 @@ public class AuctionsController {
         return ResponseEntity.ok(savedAuction);
     }
 
-    // get auctions by user id
+    /**
+     * Retrouve les Enchères d'un User selon l'ID du User
+     * @param id
+     * @return Liste D'Enchères
+     */
     @RequestMapping("/user/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<Auction>> getAuctionsByIdUserAuction(@PathVariable Integer id) {
@@ -65,7 +80,11 @@ public class AuctionsController {
         return ResponseEntity.ok(auctions);
     }
 
-    // get auctions by product id
+    /**
+     * Retrouve une Enchère selon l'ID du Produit qui lui est rattaché
+     * @param id
+     * @return Liste D'Enchères
+     */
     @RequestMapping("/product/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<Auction>> getAuctionsByIdProductAuction(@PathVariable Integer id) {

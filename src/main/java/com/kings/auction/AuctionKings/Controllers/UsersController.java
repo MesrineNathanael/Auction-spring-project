@@ -32,6 +32,10 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Permet de retrouver tous les User en BDD
+     * @return Liste de User
+     */
     @GetMapping("/all")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -43,6 +47,11 @@ public class UsersController {
         }
     }
 
+    /**
+     * Permet de retrouver un User selon son ID
+     * @param id
+     * @return Un User
+     */
     @RequestMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
@@ -50,6 +59,11 @@ public class UsersController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Permet d'ajouter un User en BDD
+     * @param user
+     * @return Un User
+     */
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -57,6 +71,12 @@ public class UsersController {
         return ResponseEntity.ok(savedUser);
     }
 
+    /**
+     * Permet de mettre à jour un User
+     * @param id
+     * @param user
+     * @return Un User
+     */
     @PutMapping("/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
@@ -75,14 +95,23 @@ public class UsersController {
         return ResponseEntity.ok(currentUser);
     }
 
+    /**
+     * Permet de supprimer un User en BDD
+     * @param id
+     */
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
-    public ResponseEntity<User> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    //get user by email and password
+    /**
+     * Permet de retrouver un User avec son email et son mot de passe
+     * @param email
+     * @param password
+     * @return Un User
+     */
     @GetMapping("/connection/email/{email}/password/{password}")
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
     ResponseEntity<User> findUser(@PathVariable String email, @PathVariable String password) {
