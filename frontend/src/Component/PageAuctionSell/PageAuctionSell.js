@@ -159,7 +159,7 @@ class AuctionSell extends Component {
                             <div>
                                 <label>* Prix de Base :                                  </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="Prix de Base"
                                     name="basePrice"
                                     value={this.state.product.basePrice}
