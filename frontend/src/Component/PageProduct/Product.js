@@ -156,7 +156,9 @@ class Product extends Component {
                                             this.state.isAuctionClosed ?
                                             <Form controlId="formBasicEmail">
                                                 <div className="form-group">
-                                                    <label htmlFor="lbl">Enchere terminer</label>
+                                                    <label htmlFor="lbl">Enchere terminé</label>
+                                                    <br></br>
+                                                    {!this.state.hasAuction ? <label htmlFor="lbl">Aucune enchère sur cet article</label> : (<label>Produit remporté par {this.state.userSeller.username} pour {this.state.auctionMaxPrice.priceAuction} credits</label>)}
                                                 </div>
                                             </Form> : sessionStorage.getItem("isConnected") === "true" ? (
                                                 <div className="form-group">
