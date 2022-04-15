@@ -37,7 +37,13 @@ class Product extends Component {
                 })
                 .then((response) => response.json())
                 .then((data) => this.setState({ userSeller: data}))
-            );
+            )
+            .then((date)=>{
+                if(this.state.product.status === "closed"){
+                    this.setState({isAuctionClosed:true});
+                    console.log("closed");
+                }
+            });
         fetch('http://localhost:8080/auctions/product/'+ this.props.match.params.id, {
             method: 'GET'
         })
@@ -68,12 +74,6 @@ class Product extends Component {
                     .then((data) => this.setState({ usersAuction: data}))
                 }}
             );
-
-            //check the status of the product
-            if(this.state.product.status === "closed"){
-                this.setState({isAuctionClosed:true});
-                console.log("closed");
-            }
     }
 
     onChange(event){
@@ -82,8 +82,6 @@ class Product extends Component {
     }
 
     handleSubmit(event){
-        //check if fields are filled
-        console.log(this.state)
         if (
             this.state.priceToBid === 0
         ) {
