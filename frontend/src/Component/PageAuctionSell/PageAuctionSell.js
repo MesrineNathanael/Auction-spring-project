@@ -100,10 +100,13 @@ class AuctionSell extends Component {
             },
             body: JSON.stringify(stateCopy),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-        })
+            .then((response) => 
+            {if (response.ok) {
+                alert("Enchère ajouté !")
+                return response.json()
+            } else {
+                alert("Echec de l'ajout de l'enchère !")
+            }})
     };
 
     render() {
@@ -159,7 +162,7 @@ class AuctionSell extends Component {
                             <div>
                                 <label>* Prix de Base :                                  </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="Prix de Base"
                                     name="basePrice"
                                     value={this.state.product.basePrice}
