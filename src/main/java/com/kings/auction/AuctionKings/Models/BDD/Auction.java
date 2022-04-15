@@ -22,7 +22,10 @@ public class Auction {
     @Type(type = "int")
     private Integer idProductAuction;
 
+    @Id
+    @Type(type = "string")
     private String dateTimeAuction;
+
     private double priceAuction;
 
     //constructor empty

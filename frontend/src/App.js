@@ -33,7 +33,7 @@ class App extends Component{
           <Route exact path="/profil/:id"> 
             <Profil />
           </Route>
-          <Route exact path="/product">
+          <Route exact path="/product/:id">
             <PageProduct />
           </Route>
           <Route exact path="/vendre"> 

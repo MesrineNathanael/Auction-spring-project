@@ -17,7 +17,8 @@ class Home extends Component {
         users: [],
         productsToShow: [],
         searchBar: "",
-        categBar: 0
+        categBar: 0,
+        hasError: false
     };
 
     componentDidMount() {
@@ -36,6 +37,18 @@ class Home extends Component {
         })
             .then((response) => response.json())
             .then((data) => this.setState({ users: data }));
+    }
+
+    fetchAuctionProduct(idProduct){
+        fetch('http://localhost:8080/auctions/product/'+idProduct, {
+            method: 'GET',
+        })
+        .then((response) => 
+            {if(response.ok){
+                return response.json()
+            } else{
+                this.setState({hasError:true});
+            }})
     }
 
     filterProducts(searchName){
@@ -84,7 +97,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.state.products)
         return (
             <div className={styles.main}>
                 <div className={styles.searchMain}>
@@ -128,11 +140,11 @@ class Home extends Component {
                                     </div>
 
                                     <div className={styles.txtContainer}>
-                                        <a href={`/product`} onClick={window.sessionStorage.setItem("productId", products.id)} title={products.id} >
+                                        <a href={'/product/'+products.id} title={products.id} >
                                             <span className={styles.title}>{products.name}</span>
                                         </a>
                                         <span className={styles.title}>{products.name}</span>
-                                        <span className={styles.price}>Prix : {products.basePrice} credits</span>
+                                        <span className={styles.price}>Prix : {!this.state.hasError ? console.log(this.fetchAuctionProduct(products.id)) : products.basePrice} credits</span>
                                         <span className={styles.dateEnd}>Date de fin : {products.dateEnd}</span>
                                         <span className={styles.seller}>Vendeur : <Link href={'/profil/'+products.idUserSeller}>
                                         {this.state.users.map((users) => 
