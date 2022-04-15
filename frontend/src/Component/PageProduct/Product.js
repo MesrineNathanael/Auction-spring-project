@@ -141,7 +141,7 @@ class Product extends Component {
                                 <h4 className="product-description">Description :</h4>
                                 <p className="product-description">{this.state.product.description}</p>
                                 <h4 className="price">Meilleure offre :{
-                                    !this.state.hasAuction ? " Aucune offre" : (<span>{this.state.auctionMaxPrice.priceAuction} credits par {this.state.userSeller.username}</span>)
+                                    !this.state.hasAuction ? " Aucune offre" : (<span>{this.state.auctionMaxPrice.priceAuction} credits par {this.state.usersAuction.username}</span>)
                                 }</h4>
                                 <h4 className="price">Mise a prix :<span>{this.state.product.basePrice} credits</span></h4>
                                 <br>
@@ -158,7 +158,7 @@ class Product extends Component {
                                                 <div className="form-group">
                                                     <label htmlFor="lbl">Enchere terminé</label>
                                                     <br></br>
-                                                    {!this.state.hasAuction ? <label htmlFor="lbl">Aucune enchère sur cet article</label> : (<label>Produit remporté par {this.state.userSeller.username} pour {this.state.auctionMaxPrice.priceAuction} credits</label>)}
+                                                    {!this.state.hasAuction ? <label htmlFor="lbl">Aucune enchère sur cet article</label> : (<label>Produit remporté par {this.state.usersAuction.username} pour {this.state.auctionMaxPrice.priceAuction} credits</label>)}
                                                 </div>
                                             </Form> : sessionStorage.getItem("isConnected") === "true" ? (
                                                 <div className="form-group">
