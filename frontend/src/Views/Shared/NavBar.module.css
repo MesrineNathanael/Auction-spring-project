@@ -37,3 +37,10 @@ a:focus{
     text-decoration: none;
     color: white;
 }
+
+
+@media screen and (max-width: 800px) {
+    .twofields {
+      margin-left: -100px;
+    }
+  }

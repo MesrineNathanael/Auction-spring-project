@@ -21,7 +21,6 @@ class AuctionSell extends Component {
         dateBegin: '',
         dateEnd: '',
         basePrice: '',
-        status: '',
         idCategoryProduct: '',
         idUserSeller: this.jsonUser.id
     };
@@ -64,11 +63,6 @@ class AuctionSell extends Component {
         stateCopy.basePrice = event;
         this.setState(stateCopy);
     }
-    handleChangeStatus(event){
-        let stateCopy = this.state.product;
-        stateCopy.status = event;
-        this.setState(stateCopy);
-    }
     handleChangeidCategory(event){
         let stateCopy = this.state.product;
         stateCopy.idCategoryProduct = event;
@@ -85,7 +79,6 @@ class AuctionSell extends Component {
             stateCopy.dateBegin === "" ||
             stateCopy.dateEnd === "" ||
             stateCopy.basePrice === "" ||
-            stateCopy.status === "" ||
             stateCopy.idCatProduct === ""
         ) {
             alert("Veuillez remplir tous les champs");
@@ -176,16 +169,6 @@ class AuctionSell extends Component {
                         </div>
 
                         <div>
-                            <div>
-                                <label>* Status :                              </label>
-                                <input
-                                    type="text"
-                                    placeholder="Status"
-                                    name="status"
-                                    value={this.state.product.status}
-                                    onChange={(e) => this.handleChangeStatus(e.target.value)}
-                                />
-                            </div>
                             <div>
                                 <Box className="box"  sx={{ minWidth: 120 }}>
                                     <FormControl fullWidth>

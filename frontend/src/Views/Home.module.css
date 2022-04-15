@@ -87,3 +87,9 @@ img{
 li{
     list-style: none;
 }
+
+@media screen and (max-width: 800px) {
+    .twofields {
+      margin-left: -100px;
+    }
+  }
